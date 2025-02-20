@@ -1,0 +1,18 @@
+Package: FungiOutline
+Type: Package
+Title: Fungi Outline Package
+Version: 2022-05-15
+Author: Yanpeng Chen
+Maintainer: Yanpeng Chen <yanpengch@qq.com>
+Description: A package containing outline data for fungi.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+News: NEWS
+Depends:
+    tidyverse (>= 1.3.0),
+    readxl (>= 1.4.0),
+    openxlsx,
+    foreach,
+    doParallel
+RoxygenNote: 7.3.1
