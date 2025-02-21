@@ -18,7 +18,7 @@ head(outline)
 
 2. Update outline
    
-First, update data/outline.<update>.xlsx
+Update data/outline.<update>.xlsx
 
 3. Summary
 
