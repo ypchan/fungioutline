@@ -2,6 +2,7 @@
 .onLoad <- function(libname, pkgname) {
   # Load outline
   # Get outline.xlsx from the fungioutline package
-  xlsx_file <- list.files(system.file("data/outline_2025.2.20.xlsx", package = "fungioutline"), pattern = "\\.xlsx$", full.names = TRUE)
+  data_path <- list.files(system.file("data", package = "fungioutline"), pattern = "\\.xlsx$", full.names = TRUE)
+  xlsx_file <- file.path(data_path, "outline_2025.2.20.xlsx")
   outline <<- readxl::read_excel(xlsx_file)
 }
