@@ -2,9 +2,6 @@
 .onLoad <- function(libname, pkgname) {
   # Load outline
   # Get outline.xlsx from the fungioutline package
-  xlsx_files <- list.files(system.file("data", package = "fungioutline"), pattern = "\\.xlsx$", full.names = TRUE)
-  
-  # sort table by time
-  latest_file <- xlsx_files[order(file.info(xlsx_files)$mtime, decreasing = TRUE)][1]
-  outline <<- readxl::read_excel(latest_file)
+  xlsx_file <- list.files(system.file("data/outline_2025.2.20.xlsx", package = "fungioutline"), pattern = "\\.xlsx$", full.names = TRUE)
+  outline <<- readxl::read_excel(xlsx_file)
 }
