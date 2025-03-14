@@ -1,9 +1,6 @@
 # fungioutline
 **fungioutline**—a tiny R package that integrates up-to-date taxonomic scheme with public genomes for phylogenomic analysis.
 
-![Join me](img/helpinfo.png)
-## Updates
-2025.20 updated classes
 ## Install
 ```
 library(devtools)
@@ -64,12 +61,8 @@ Update data/outline.<update>.xlsx
     left_join(lineage_tbl, by = c("Genus" = "Genera")) -> assigned_tbl
   write_xlsx(assigned_tbl, "assigned_tbl.xlsx")
   ```
-## References
-1. 2024: The 2024 Outline of Fungi and fungus-like taxa. [link](https://mycosphere.org/pdf/MYCOSPHERE_15_1_25.pdf)
-2. 2023: Phylogenomics and diversification of Sordariomycetes. [link](https://mycosphere.org/pdf/MYCOSPHERE_14_1_5.pdf)
-3. 2021: A genome-scale phylogeny of the kingdom Fungi. [link](https://doi.org/10.1016/j.cub.2021.01.074)
-4. ....
-
+## Updates
+2025-3 Updated Phylum and Classes [doi](https://doi.org/10.1007/s13225-024-00540-z)
   
   
    
