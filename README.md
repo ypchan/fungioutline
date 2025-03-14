@@ -9,17 +9,17 @@ library(devtools)
 devtools::install_github(""ypchan/fungioutline)
 ```
 ## Usage
-1. Load and take a look at the outline
+### Load and take a look at the outline
 ```
 library(fungioutline)
 head(outline)
 ```
 
-2. Update outline
+### Update outline
    
 Update data/outline.<update>.xlsx
 
-3. Summary
+### Summary
 
 - Count all taxonomic levels
    ```
