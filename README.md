@@ -1,11 +1,19 @@
-# fungioutline -- a tiny R package that integrates up-to-date taxonomic studies.
+# fungioutline -- a tiny R package that integrates up-to-date taxonomic studies
 
 [![Built with R](https://img.shields.io/badge/powered_by-R-6362c2.svg?style=flat)](https://www.r-project.org/)
 [![Github Releases](https://img.shields.io/github/downloads/ypchan/fungioutline/latest/total.svg?maxAge=3600)](https://github.com/ypchan/fungioutline/releases)
 
-## Updates
-2025.20 updated classes
-## Install
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Installitation](#Installation)
+- [Usage](#Usage)
+- [Updates](#Updates)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Installitation
 ```
 library(devtools)
 devtools::install_github(""ypchan/fungioutline)
