@@ -3,6 +3,6 @@
   library(tidyverse)
   # Load outline
   # Get outline.xlsx from the fungioutline package
-  xlsx_file <- list.files(system.file("data/outline_2025.2.20.xlsx", package = "fungioutline"), pattern = "\\.xlsx$", full.names = TRUE)
-  outline <<- readxl::read_excel(latest_file)
+  xlsx_file <- file.path(system.file("data", package = "fungioutline"), "outline_2025.2.20.xlsx")
+  outline <<- readxl::read_excel(xlsx_file)
 }
