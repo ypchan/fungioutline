@@ -1,27 +1,25 @@
-# fungioutline -- a tiny R package that integrates up-to-date taxonomic scheme with public genomes for phylogenomic analysis.
+# fungioutline -- a tiny R package that integrates up-to-date taxonomic studies
 
 [![Built with R](https://img.shields.io/badge/powered_by-R-6362c2.svg?style=flat)](https://www.r-project.org/)
 [![Github Releases](https://img.shields.io/github/downloads/ypchan/fungioutline/latest/total.svg?maxAge=3600)](https://github.com/ypchan/fungioutline/releases)
 
-## Updates
-2025.20 updated classes
-## Install
+## Installitation
 ```
 library(devtools)
 devtools::install_github(""ypchan/fungioutline)
 ```
 ## Usage
-1. Load and take a look at the outline
+### Load and take a look at the outline
 ```
 library(fungioutline)
 head(outline)
 ```
 
-2. Update outline
+### Update outline
    
 Update data/outline.<update>.xlsx
 
-3. Summary
+### Summary
 
 - Count all taxonomic levels
    ```
