@@ -8,8 +8,9 @@
   red_bold <- "\033[1;31m"  
   reset <- "\033[0m"       
   cat(red_bold, "Last update: March 15, 2025", reset, "\n")
-  readxl::read_excel(system.file("data", package = "fungioutline", xlsx_file)) %>%
-      select(Kingdom, Subkingdoms, Phyla, Subphyla, Classes, Subclasses, Orders, Families, Genera) ->> outline 
+  outline <- readxl::read_excel(system.file("data", package = "fungioutline", xlsx_file)) %>%
+      select(Kingdom, Subkingdoms, Phyla, Subphyla, Classes, Subclasses, Orders, Families, Genera) 
+  assign("outline", outline, envir = .GlobalEnv)
 }
 #detach()
 
