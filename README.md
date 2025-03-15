@@ -6,7 +6,7 @@
 ## Installitation and Update
 ```
 library(devtools)
-devtools::install_github(""ypchan/fungioutline) # To update, just redo installitation
+devtools::install_github("ypchan/fungioutline") # To update, just redo installitation
 ```
 ## Usage
 ### Load and take a look at the outline
