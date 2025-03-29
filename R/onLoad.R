@@ -9,13 +9,12 @@
   reset <- "\033[0m"       
   cat("\n", red_bold, "Updated fungioutline: March 15, 2025", reset, "\n")
   outline <- readxl::read_excel(system.file("data", package = "fungioutline", xlsx_file), 
-                                col_types = rep("text", length(col_names))) %>%
+                                col_types = rep("text", 21)) %>%
       select(Kingdom, Subkingdoms, Phyla, Subphyla, Classes, Subclasses, Orders, Families, Genera) 
   assign("outline", outline, envir = .GlobalEnv)
 }
 #detach()
 
 #devtools::install_github("ypchan/fungioutline")
-
 #library(fungioutline)
 #outline
