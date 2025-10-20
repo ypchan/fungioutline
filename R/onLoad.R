@@ -7,7 +7,7 @@
                             pattern = "^outline.*xlsx")
   outline <- readxl::read_excel(system.file("data", package = "fungioutline", xlsx_file), 
                                 col_types = rep("text", 21)) %>%
-      select(Kingdom, Subkingdom, Phylum, Subphylum, Class, Subclass, Order, Family, Genus) 
+      select(Kingdom, Subkingdom, Phylum, Subphylum, Class, Subclass, Order, Order_syn, Family,Family_syn, Genus, Genus_syn) 
   assign("outline", outline, envir = .GlobalEnv)
 }
 #detach()
