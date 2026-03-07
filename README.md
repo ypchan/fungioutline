@@ -3,6 +3,8 @@
 [![Built with R](https://img.shields.io/badge/powered_by-R-6362c2.svg?style=flat)](https://www.r-project.org/)
 [![Github Releases](https://img.shields.io/github/downloads/ypchan/fungioutline/latest/total.svg?maxAge=3600)](https://github.com/ypchan/fungioutline/releases)
 
+![fungioutline](images/fungioutline.png)
+
 ## Installitation and Update
 ```
 library(devtools)
