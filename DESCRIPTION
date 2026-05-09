@@ -1,0 +1,44 @@
+Package: fungioutline
+Title: Tools for Fungal Taxonomic Outlines and Genome Sampling
+Version: 0.0.0.9000
+Authors@R:
+    person("FungiOutline contributors", role = c("aut", "cre"), email = "maintainer@example.com")
+Description: Provides tidy tools for importing, validating, standardizing,
+    comparing, and analyzing expert-curated fungal taxonomic outline tables,
+    public genome metadata, BUSCO quality results, and optional sequence
+    availability summaries.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+LazyData: true
+LazyDataCompression: xz
+Depends:
+    R (>= 4.1)
+Imports:
+    cli,
+    dplyr,
+    fs,
+    glue,
+    lifecycle,
+    purrr,
+    readr,
+    readxl,
+    rlang,
+    stringr,
+    tibble,
+    tidyr,
+    utils
+Suggests:
+    ggplot2,
+    ggrepel,
+    knitr,
+    patchwork,
+    pkgdown,
+    rmarkdown,
+    scales,
+    testthat (>= 3.0.0),
+    rentrez,
+    writexl
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+RoxygenNote: 7.3.3

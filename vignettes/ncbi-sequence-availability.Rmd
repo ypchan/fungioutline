@@ -1,0 +1,151 @@
+---
+title: "NCBI Sequence Availability"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NCBI Sequence Availability}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    eval = FALSE
+)
+```
+
+`fungioutline` can check whether NCBI nucleotide records are available for a
+taxon or clade. The functions are serial by default, cache results, and use
+`Sys.getenv("NCBI_API_KEY")` when an NCBI API key is configured.
+
+Network examples in this vignette are not executed by default.
+
+## Prepare a taxon index
+
+```{r}
+outline <- fungioutline::fungi_outline
+idx <- fungioutline::fungi_taxon_index
+```
+
+Taxon names are resolved before querying NCBI, so synonyms can map to accepted
+names when `match_synonym = TRUE`.
+
+## Count-only searches
+
+Use `search_ncbi_sequence_counts()` when you only need record counts.
+
+```{r}
+counts <- fungioutline::search_ncbi_sequence_counts(
+    c("Ascomycota", "Fusarium", "Agaricus"),
+    taxon_index = idx,
+    db = "nuccore",
+    delay_sec = 0.34
+)
+
+counts |>
+    dplyr::select(
+        .data$input_taxon,
+        .data$accepted_name,
+        .data$count,
+        .data$has_sequences,
+        .data$cached
+    )
+```
+
+The default database is `nuccore`.
+
+## Searches with record IDs
+
+Use `search_ncbi_sequences()` when you also want IDs up to `retmax`.
+
+```{r}
+seq_results <- fungioutline::search_ncbi_sequences(
+    "Fusarium",
+    taxon_index = idx,
+    db = "nuccore",
+    retmax = 20,
+    delay_sec = 0.34
+)
+
+seq_results |>
+    dplyr::select(.data$input_taxon, .data$count, .data$ids)
+```
+
+## Caching
+
+Results are cached by database, query, and return limit. Choose an explicit
+cache directory for reproducible projects.
+
+```{r}
+counts <- fungioutline::search_ncbi_sequence_counts(
+    "Fusarium",
+    taxon_index = idx,
+    cache_dir = "inst/extdata/ncbi-cache",
+    delay_sec = 0.34
+)
+```
+
+You can also read or write one cache item directly:
+
+```{r}
+fungioutline::cache_ncbi_result(
+    key = "manual_example",
+    value = list(count = 1, ids = "12345"),
+    cache_dir = "inst/extdata/ncbi-cache"
+)
+
+fungioutline::cache_ncbi_result(
+    key = "manual_example",
+    cache_dir = "inst/extdata/ncbi-cache"
+)
+```
+
+## API keys and rate limits
+
+If available, set the NCBI API key outside R or in your interactive session:
+
+```{r}
+Sys.setenv(NCBI_API_KEY = "your_api_key_here")
+```
+
+Keep `delay_sec` above the relevant NCBI rate-limit interval for your key and
+workflow. The package does not parallelize NCBI requests by default.
+
+## Visualize NCBI availability
+
+```{r}
+fungioutline::plot_ncbi_sequence_counts(counts)
+```
+
+The returned ggplot can be saved only when you request it:
+
+```{r}
+fungioutline::plot_ncbi_sequence_counts(
+    counts,
+    output_path = "figures/ncbi_sequence_counts.png"
+)
+```
+
+## Testing without live NCBI calls
+
+Package tests use mocked search functions instead of live NCBI requests. For
+your own tests, pass a function through `search_fun` with the same arguments:
+
+```{r}
+mock_search <- function(db, query, retmax, api_key) {
+    list(
+        count = 2L,
+        ids = c("100", "101"),
+        error = NA_character_
+    )
+}
+
+fungioutline::search_ncbi_sequences(
+    "Fusarium",
+    taxon_index = idx,
+    use_cache = FALSE,
+    delay_sec = 0,
+    search_fun = mock_search
+)
+```

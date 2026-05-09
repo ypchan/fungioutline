@@ -1,0 +1,170 @@
+---
+title: "Genome Coverage and BUSCO Filtering"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Genome Coverage and BUSCO Filtering}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    eval = FALSE
+)
+```
+
+`fungioutline` combines lineage-aware taxon lookup with genome metadata and
+BUSCO completeness metrics. This supports clade-level questions such as which
+genera have public genomes, which genomes meet quality thresholds, and where
+sampling gaps remain.
+
+## Read and validate genome metadata
+
+```{r}
+genomes <- fungioutline::read_genome_metadata(
+    "data-raw/fgtdb_genome_metadata.xlsx"
+)
+
+genome_validation <- fungioutline::validate_genome_metadata(
+    genomes,
+    error = FALSE
+)
+
+genome_validation |>
+    dplyr::filter(.data$status == "fail")
+```
+
+The expected metadata includes taxonomic columns such as `phylum`, `class`,
+`order`, `family`, `genus`, and `species`, plus BUSCO percentage and count
+columns such as `C`, `F`, `M`, `complete_buscos`, and `total_buscos`.
+
+## Classify genome quality
+
+The default quality classes are based on BUSCO complete and missing
+percentages:
+
+```{r}
+genomes_quality <- genomes |>
+    fungioutline::classify_genome_quality()
+
+genomes_quality |>
+    dplyr::count(.data$genome_quality)
+```
+
+Adjust thresholds when your project uses stricter or looser standards:
+
+```{r}
+genomes_quality <- genomes |>
+    fungioutline::classify_genome_quality(
+        high_complete = 95,
+        high_missing = 5,
+        medium_complete = 80,
+        medium_missing = 20
+    )
+```
+
+## Filter genomes by BUSCO quality
+
+```{r}
+high_quality_genomes <- genomes |>
+    fungioutline::filter_genomes_by_quality(
+        min_complete = 90,
+        max_missing = 10,
+        require_ok = TRUE
+    )
+```
+
+The function returns a tibble and preserves the input columns.
+
+## Summarize BUSCO completeness
+
+```{r}
+fungioutline::summarize_busco(genomes, by = "phylum")
+
+fungioutline::summarize_busco(genomes, by = c("phylum", "class"))
+```
+
+## Retrieve genomes for a clade
+
+Build a taxon index once, then reuse it with genome metadata.
+
+```{r}
+outline <- fungioutline::fungi_outline
+idx <- fungioutline::fungi_taxon_index
+
+ascomycota_genomes <- fungioutline::get_genomes(
+    "Ascomycota",
+    genome_metadata = genomes,
+    taxon_index = idx
+)
+```
+
+The taxon can be any supported rank. If the matched rank is broader than the
+genome metadata rank, descendants are used to find matching genome rows.
+
+## Summarize genome availability
+
+```{r}
+fungioutline::summarize_genomes(
+    genomes,
+    taxon = c("Ascomycota", "Basidiomycota"),
+    taxon_index = idx
+)
+```
+
+The summary includes genome counts, accession counts, species and genus counts,
+BUSCO summaries, and quality counts.
+
+## Check descendant coverage
+
+```{r}
+coverage <- fungioutline::check_genome_coverage(
+    "Ascomycota",
+    genome_metadata = genomes,
+    target_rank = "genus",
+    taxon_index = idx
+)
+
+coverage |>
+    dplyr::filter(!.data$has_genome)
+```
+
+## Visualize coverage and BUSCO quality
+
+```{r}
+fungioutline::plot_genome_coverage(
+    "Ascomycota",
+    genome_metadata = genomes,
+    target_rank = "genus",
+    taxon_index = idx
+)
+
+fungioutline::plot_busco_quality(genomes)
+
+fungioutline::plot_busco_quality(
+    genomes,
+    metric = "C",
+    group_col = "phylum"
+)
+
+fungioutline::plot_taxonomic_heatmap(
+    "Ascomycota",
+    genome_metadata = genomes,
+    target_rank = "genus",
+    taxon_index = idx
+)
+```
+
+Plots are returned as ggplot objects. To save one, supply `output_path`.
+
+```{r}
+fungioutline::plot_genome_coverage(
+    "Ascomycota",
+    genome_metadata = genomes,
+    target_rank = "genus",
+    taxon_index = idx,
+    output_path = "figures/ascomycota_genome_coverage.png"
+)
+```

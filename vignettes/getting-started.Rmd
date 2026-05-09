@@ -1,0 +1,155 @@
+---
+title: "Getting Started with fungioutline"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with fungioutline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    eval = FALSE
+)
+```
+
+`fungioutline` connects a manually curated fungal taxonomic outline with genome
+metadata, BUSCO quality information, optional NCBI sequence availability checks,
+and visualization functions. The package is designed for tidyverse-style
+analysis: functions return tibbles or ggplot objects, work in pipelines, and
+avoid hidden side effects unless their purpose is explicitly to write files.
+
+## Core objects
+
+Most workflows use two reusable objects:
+
+- `outline`: a standardized version of the curated outline table.
+- `idx`: a long-format taxon index built from accepted names and synonyms.
+
+```{r}
+outline <- fungioutline::fungi_outline
+idx <- fungioutline::fungi_taxon_index
+```
+
+The current curated outline mainly reaches genus, but the index includes a
+`species` column and is designed to support `species` and `species_syn` when
+those columns are added later.
+
+## Validate the outline
+
+Validation returns a tidy report. Use `error = FALSE` during exploration so you
+can inspect all checks at once.
+
+```{r}
+validation_report <- fungioutline::validate_fungi_outline(
+    outline,
+    error = FALSE
+)
+
+validation_report |>
+    dplyr::filter(.data$status == "fail")
+```
+
+## Look up lineages
+
+`get_lineage()` resolves accepted names first, then synonyms when
+`match_synonym = TRUE`. If a taxon name maps to multiple possible lineages,
+all candidates are returned unless `best_match = TRUE`.
+
+```{r}
+fungioutline::get_lineage(
+    c("Ascomycota", "Fusarium", "Gibberella"),
+    taxon_index = idx
+)
+
+fungioutline::get_lineage(
+    "Fusarium",
+    taxon_index = idx,
+    best_match = TRUE
+)
+```
+
+## Add lineage columns to user data
+
+`add_lineage()` supports bare column names and string column names, so it works
+naturally in tidyverse pipelines.
+
+```{r}
+sampling_plan <- tibble::tibble(
+    isolate_id = c("iso_001", "iso_002", "iso_003"),
+    genus = c("Fusarium", "Agaricus", "Unknown")
+)
+
+sampling_plan |>
+    fungioutline::add_lineage(taxon_col = genus, taxon_index = idx) |>
+    dplyr::select(
+        .data$isolate_id,
+        .data$genus,
+        .data$phylum,
+        .data$class,
+        .data$order,
+        .data$family
+    )
+```
+
+The same call also accepts a string:
+
+```{r}
+sampling_plan |>
+    fungioutline::add_lineage(taxon_col = "genus", taxon_index = idx)
+```
+
+## Count and retrieve descendants
+
+Use `count_taxa()` for clade-level richness and `get_descendants()` when you
+need the descendant table itself.
+
+```{r}
+fungioutline::count_taxa(
+    "Ascomycota",
+    taxon_index = idx
+)
+
+fungioutline::get_descendants(
+    "Ascomycota",
+    target_rank = "genus",
+    taxon_index = idx
+)
+```
+
+## Visualize the outline
+
+Plot helpers return ggplot objects and save files only when `output_path` is
+supplied.
+
+```{r}
+fungioutline::plot_taxon_richness(taxon_index = idx)
+
+fungioutline::plot_taxon_richness(
+    taxon = "Ascomycota",
+    by_rank = "genus",
+    taxon_index = idx
+)
+```
+
+## Recommended first workflow
+
+```{r}
+outline <- fungioutline::fungi_outline
+
+validation_report <- fungioutline::validate_fungi_outline(
+    outline,
+    error = FALSE
+)
+
+idx <- fungioutline::fungi_taxon_index
+
+fungioutline::get_lineage(
+    c("Ascomycota", "Agaricus", "Fusarium"),
+    taxon_index = idx
+)
+
+fungioutline::count_taxa("Ascomycota", taxon_index = idx)
+```

@@ -1,0 +1,130 @@
+---
+title: "Updating the Outline Excel File"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Updating the Outline Excel File}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    eval = FALSE
+)
+```
+
+The curated fungal outline is intentionally edited by experts outside package
+code. `fungioutline` provides the reproducible update layer around that manual
+curation: import the edited Excel file, validate and standardize it, compare it
+with the previous version, build a fresh taxon index, and write versioned data
+plus a change history.
+
+## Manual update cycle
+
+1. Edit `data-raw/outline_2025.10.20.xlsx` manually.
+2. Run `update_outline_data()` interactively.
+3. Review the returned summary and history.
+4. Run documentation and tests manually.
+
+```{r}
+outline_update <- fungioutline::update_outline_data(
+    excel_path = "data-raw/outline_2025.10.20.xlsx",
+    output_dir = "inst/extdata",
+    overwrite_current = TRUE,
+    write_versioned = TRUE,
+    write_history = TRUE,
+    verbose = TRUE
+)
+
+outline_update$summary
+outline_update$history
+```
+
+The helper script `data-raw/update_outline.R` contains the same workflow as a
+template for interactive use.
+
+## Generated files
+
+The update workflow can write:
+
+- `inst/extdata/outline_current.rds`
+- `inst/extdata/outline_index.rds`
+- `inst/extdata/outline_<version_id>.rds`
+- `inst/extdata/outline_index_<version_id>.rds`
+- `inst/extdata/outline_history.tsv`
+
+The current files are convenient package data inputs. The versioned files and
+history table keep the taxonomy update reproducible.
+
+## Read and inspect history
+
+```{r}
+history <- fungioutline::read_outline_history(
+    "inst/extdata/outline_history.tsv"
+)
+
+history |>
+    dplyr::count(.data$version_id, .data$change_type, name = "n_changes")
+```
+
+You can also visualize the history:
+
+```{r}
+fungioutline::plot_update_history(history)
+```
+
+## Compare two versions directly
+
+Use `compare_outline_versions()` when you already have two outline objects in
+memory.
+
+```{r}
+old_outline <- readRDS("inst/extdata/outline_current.rds")
+new_outline <- fungioutline::read_fungi_outline("data-raw/outline_2025.10.20.xlsx")
+
+history <- fungioutline::compare_outline_versions(
+    old_outline = old_outline,
+    new_outline = new_outline,
+    version_id = "outline_review"
+)
+
+history |>
+    dplyr::arrange(.data$rank, .data$taxon_name, .data$field)
+```
+
+Detected change types include:
+
+- `added_taxon`
+- `removed_taxon`
+- `changed_lineage`
+- `changed_synonym`
+- `changed_metadata`
+
+## Write history manually
+
+`write_outline_history()` supports TSV, CSV, and RDS output. It creates parent
+directories and appends by default.
+
+```{r}
+fungioutline::write_outline_history(
+    history,
+    path = "inst/extdata/outline_history.tsv",
+    append = TRUE
+)
+```
+
+Use `append = FALSE` only when you intentionally want to replace the existing
+history file.
+
+## Development commands
+
+The update workflow does not run package-development commands automatically.
+Run these manually after reviewing the update:
+
+```{r}
+devtools::document()
+devtools::test()
+devtools::check()
+```

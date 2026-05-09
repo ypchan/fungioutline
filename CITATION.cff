@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use fungioutline, please cite it using this metadata."
+type: software
+title: "fungioutline: Tools for Fungal Taxonomic Outlines and Genome Sampling"
+version: 0.0.0.9000
+date-released: "2026-05-08"
+abstract: >
+  fungioutline provides tidy R tools for importing, validating, updating, and
+  analyzing expert-curated fungal taxonomic outlines together with public genome
+  metadata, BUSCO quality summaries, optional NCBI sequence availability checks,
+  and phylogenomic sampling workflows.
+authors:
+  - name: "FungiOutline contributors"
+license: GPL-3.0-or-later
+keywords:
+  - fungal taxonomy
+  - systematics
+  - phylogenomics
+  - genome metadata
+  - BUSCO
+  - R package

@@ -1,0 +1,301 @@
+<svg data-ai-compatible="true" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     width="1440" height="1080" viewBox="0 0 1440 1080" version="1.1" id="fungioutline_framework_layered">
+  <defs id="defs">
+    <!-- AI-compatible version: group filter effects removed so text remains visible in Adobe Illustrator. -->
+    <style id="style-defs"><![CDATA[
+      .title{font-family:Arial, Helvetica, sans-serif;font-size:64px;font-weight:700;fill:#0b1d58}
+      .subtitle{font-family:Arial, Helvetica, sans-serif;font-size:22px;font-weight:400;fill:#42516e}
+      .panelTitle{font-family:Arial, Helvetica, sans-serif;font-size:28px;font-weight:700;fill:#122257}
+      .panelSub{font-family:Arial, Helvetica, sans-serif;font-size:18px;font-weight:400;fill:#455774}
+      .boxTitle{font-family:Arial, Helvetica, sans-serif;font-size:24px;font-weight:700;fill:#122257}
+      .body{font-family:Arial, Helvetica, sans-serif;font-size:17px;font-weight:400;fill:#273757}
+      .small{font-family:Arial, Helvetica, sans-serif;font-size:14px;font-weight:400;fill:#52627d}
+      .banner{font-family:Arial, Helvetica, sans-serif;font-size:20px;font-weight:700;fill:#ffffff;letter-spacing:0.3px}
+      .panel-stroke-blue{stroke:#c6dbee;stroke-width:2}
+      .panel-stroke-beige{stroke:#e6d9bd;stroke-width:2}
+      .panel-stroke-purple{stroke:#d8d4ef;stroke-width:2}
+      .card-stroke-blue{stroke:#c8d4e4;stroke-width:2}
+      .card-stroke-beige{stroke:#e0d3b9;stroke-width:2}
+      .card-stroke-purple{stroke:#d7d2ea;stroke-width:2}
+      .arrow-line{fill:none;stroke:#11225e;stroke-width:4;marker-end:url(#arrow)}
+    ]]></style>
+    <marker id="arrow" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,5 L0,10 z" fill="#11225e" id="arrow-path"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <g id="layer_background" inkscape:groupmode="layer" inkscape:label="01 Background">
+    <rect id="background" x="0" y="0" width="1440" height="1080" fill="#ffffff"/>
+  </g>
+
+  <g id="layer_header" inkscape:groupmode="layer" inkscape:label="02 Header">
+    <g id="header_group">
+      <text id="title_text" x="40" y="70" class="title">fungioutline</text>
+      <text id="subtitle_text" x="42" y="116" class="subtitle">A reproducible framework for fungal taxonomy updates, genome quality filtering, sequence availability checks, and phylogenomic sampling</text>
+    </g>
+  </g>
+
+  <g id="layer_panels" inkscape:groupmode="layer" inkscape:label="03 Panel Backgrounds and Section Headers">
+    <g id="input_panel">
+      <rect id="input_panel_bg" x="28" y="155" rx="22" ry="22" width="390" height="775" fill="#eef7fd" class="panel-stroke-blue"/>
+      <text id="input_panel_title" x="65" y="205" class="panelTitle">Input layers</text>
+      <text id="input_panel_subtitle" x="65" y="237" class="panelSub">Curated and public evidence sources</text>
+    </g>
+    <g id="workflow_panel">
+      <rect id="workflow_panel_bg" x="445" y="155" rx="22" ry="22" width="430" height="775" fill="#fbf7ef" class="panel-stroke-beige"/>
+      <text id="workflow_panel_title" x="485" y="205" class="panelTitle">Core workflows</text>
+      <text id="workflow_panel_subtitle_1" x="485" y="237" class="panelSub">Tidy, standardized data objects and</text>
+      <text id="workflow_panel_subtitle_2" x="485" y="268" class="panelSub">reproducible processing</text>
+    </g>
+    <g id="output_panel">
+      <rect id="output_panel_bg" x="900" y="155" rx="22" ry="22" width="500" height="775" fill="#f4f3fd" class="panel-stroke-purple"/>
+      <text id="output_panel_title" x="945" y="205" class="panelTitle">Analysis and outputs</text>
+      <text id="output_panel_subtitle" x="945" y="237" class="panelSub">Systematics, genome sampling, and figures</text>
+    </g>
+  </g>
+
+  <g id="layer_input_cards" inkscape:groupmode="layer" inkscape:label="04 Input Cards">
+    <g id="card_curated_outline">
+      <rect id="card_curated_outline_bg" x="55" y="286" rx="18" ry="18" width="330" height="145" fill="#ffffff" class="card-stroke-blue"/>
+      <g id="card_curated_outline_icon">
+        <circle id="card_curated_outline_icon_bg" cx="105" cy="358" r="40" fill="#d8edf9"/>
+        <rect id="card_curated_outline_icon_doc" x="92" y="338" width="24" height="34" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="card_curated_outline_icon_fold" d="M116 338 L123 345 L123 372" fill="none" stroke="#11225e" stroke-width="3"/>
+        <line id="card_curated_outline_icon_line1" x1="97" y1="350" x2="111" y2="350" stroke="#11225e" stroke-width="2"/>
+        <line id="card_curated_outline_icon_line2" x1="97" y1="358" x2="111" y2="358" stroke="#11225e" stroke-width="2"/>
+        <line id="card_curated_outline_icon_line3" x1="97" y1="366" x2="111" y2="366" stroke="#11225e" stroke-width="2"/>
+      </g>
+      <g id="card_curated_outline_text">
+        <text id="card_curated_outline_title" x="165" y="338" class="boxTitle">Curated outline</text>
+        <text id="card_curated_outline_body" x="165" y="378" class="body">Expert-edited Excel taxonomy</text>
+        <text id="card_curated_outline_small" x="165" y="414" class="small">accepted names, synonyms, notes</text>
+      </g>
+    </g>
+
+    <g id="card_genome_metadata">
+      <rect id="card_genome_metadata_bg" x="55" y="473" rx="18" ry="18" width="330" height="145" fill="#ffffff" class="card-stroke-blue"/>
+      <g id="card_genome_metadata_icon">
+        <circle id="card_genome_metadata_icon_bg" cx="105" cy="545" r="40" fill="#d8edf9"/>
+        <path id="card_genome_metadata_icon_curve1" d="M95 516 C128 535,82 555,115 575" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="card_genome_metadata_icon_curve2" d="M115 516 C82 535,128 555,95 575" fill="none" stroke="#11225e" stroke-width="3"/>
+        <line id="card_genome_metadata_icon_line1" x1="93" y1="525" x2="117" y2="525" stroke="#11225e" stroke-width="2"/>
+        <line id="card_genome_metadata_icon_line2" x1="91" y1="535" x2="119" y2="535" stroke="#11225e" stroke-width="2"/>
+        <line id="card_genome_metadata_icon_line3" x1="91" y1="545" x2="119" y2="545" stroke="#11225e" stroke-width="2"/>
+        <line id="card_genome_metadata_icon_line4" x1="91" y1="555" x2="119" y2="555" stroke="#11225e" stroke-width="2"/>
+        <line id="card_genome_metadata_icon_line5" x1="93" y1="565" x2="117" y2="565" stroke="#11225e" stroke-width="2"/>
+      </g>
+      <g id="card_genome_metadata_text">
+        <text id="card_genome_metadata_title" x="165" y="525" class="boxTitle">Genome metadata</text>
+        <text id="card_genome_metadata_body" x="165" y="565" class="body">Public fungal genome records</text>
+        <text id="card_genome_metadata_small" x="165" y="601" class="small">accessions, ranks, assemblies</text>
+      </g>
+    </g>
+
+    <g id="card_busco_results">
+      <rect id="card_busco_results_bg" x="55" y="660" rx="18" ry="18" width="330" height="145" fill="#ffffff" class="card-stroke-blue"/>
+      <g id="card_busco_results_icon">
+        <circle id="card_busco_results_icon_bg" cx="105" cy="732" r="40" fill="#d8edf9"/>
+        <line id="card_busco_results_baseline" x1="88" y1="756" x2="122" y2="756" stroke="#11225e" stroke-width="3"/>
+        <rect id="card_busco_results_bar1" x="91" y="735" width="6" height="21" fill="none" stroke="#11225e" stroke-width="3"/>
+        <rect id="card_busco_results_bar2" x="103" y="723" width="6" height="33" fill="none" stroke="#11225e" stroke-width="3"/>
+        <rect id="card_busco_results_bar3" x="115" y="709" width="6" height="47" fill="none" stroke="#11225e" stroke-width="3"/>
+      </g>
+      <g id="card_busco_results_text">
+        <text id="card_busco_results_title" x="160" y="718" class="boxTitle">BUSCO results</text>
+        <text id="card_busco_results_body" x="160" y="757" class="body">Completeness and missingness</text>
+        <text id="card_busco_results_small" x="160" y="793" class="small">C, S, D, F, M, total BUSCOs</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="layer_workflow_cards" inkscape:groupmode="layer" inkscape:label="05 Workflow Cards">
+    <g id="workflow_import_standardize">
+      <rect id="workflow_import_standardize_bg" x="478" y="295" rx="18" ry="18" width="362" height="120" fill="#ffffff" class="card-stroke-beige"/>
+      <g id="workflow_import_standardize_icon">
+        <circle id="workflow_import_standardize_icon_bg" cx="535" cy="355" r="34" fill="#f8efe0"/>
+        <rect id="workflow_import_standardize_icon_clip" x="522" y="337" width="24" height="34" fill="none" stroke="#11225e" stroke-width="3"/>
+        <line id="workflow_import_standardize_icon_line1" x1="527" y1="345" x2="541" y2="345" stroke="#11225e" stroke-width="2"/>
+        <line id="workflow_import_standardize_icon_line2" x1="527" y1="353" x2="541" y2="353" stroke="#11225e" stroke-width="2"/>
+        <line id="workflow_import_standardize_icon_line3" x1="527" y1="361" x2="541" y2="361" stroke="#11225e" stroke-width="2"/>
+        <circle id="workflow_import_standardize_icon_clip_top" cx="534" cy="333" r="2.5" fill="#11225e"/>
+      </g>
+      <g id="workflow_import_standardize_text">
+        <text id="workflow_import_standardize_title" x="570" y="338" class="boxTitle">Import, validate, standardize</text>
+        <text id="workflow_import_standardize_body" x="570" y="374" class="body">read_fungi_outline(), read_genome_metadata()</text>
+        <text id="workflow_import_standardize_small" x="570" y="401" class="small">consistent columns, tibble outputs</text>
+      </g>
+    </g>
+
+    <g id="workflow_taxon_index">
+      <rect id="workflow_taxon_index_bg" x="478" y="449" rx="18" ry="18" width="362" height="120" fill="#ffffff" class="card-stroke-beige"/>
+      <g id="workflow_taxon_index_icon">
+        <circle id="workflow_taxon_index_icon_bg" cx="535" cy="509" r="34" fill="#f8efe0"/>
+        <path id="workflow_taxon_index_icon_folder" d="M516 486 h20 a8 8 0 0 1 8 8 v20 h-28 z" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="workflow_taxon_index_icon_folder_tab" d="M516 494 l7 -8 h21" fill="none" stroke="#11225e" stroke-width="3"/>
+      </g>
+      <g id="workflow_taxon_index_text">
+        <text id="workflow_taxon_index_title" x="570" y="491" class="boxTitle">Taxon index</text>
+        <text id="workflow_taxon_index_body" x="570" y="523" class="body">build_taxon_index()</text>
+        <text id="workflow_taxon_index_small1" x="570" y="550" class="small">accepted names, synonyms,</text>
+        <text id="workflow_taxon_index_small2" x="570" y="572" class="small">normalized keys</text>
+      </g>
+    </g>
+
+    <g id="workflow_lineage_engine">
+      <rect id="workflow_lineage_engine_bg" x="478" y="603" rx="18" ry="18" width="362" height="120" fill="#ffffff" class="card-stroke-beige"/>
+      <g id="workflow_lineage_engine_icon">
+        <circle id="workflow_lineage_engine_icon_bg" cx="535" cy="663" r="34" fill="#f8efe0"/>
+        <circle id="workflow_lineage_engine_node1" cx="519" cy="649" r="4" fill="none" stroke="#11225e" stroke-width="3"/>
+        <circle id="workflow_lineage_engine_node2" cx="519" cy="677" r="4" fill="none" stroke="#11225e" stroke-width="3"/>
+        <circle id="workflow_lineage_engine_node3" cx="540" cy="641" r="4" fill="none" stroke="#11225e" stroke-width="3"/>
+        <circle id="workflow_lineage_engine_node4" cx="540" cy="663" r="4" fill="none" stroke="#11225e" stroke-width="3"/>
+        <circle id="workflow_lineage_engine_node5" cx="540" cy="685" r="4" fill="none" stroke="#11225e" stroke-width="3"/>
+        <line id="workflow_lineage_engine_edge1" x1="523" y1="649" x2="536" y2="641" stroke="#11225e" stroke-width="2"/>
+        <line id="workflow_lineage_engine_edge2" x1="523" y1="677" x2="536" y2="685" stroke="#11225e" stroke-width="2"/>
+        <line id="workflow_lineage_engine_edge3" x1="523" y1="649" x2="523" y2="677" stroke="#11225e" stroke-width="2"/>
+        <line id="workflow_lineage_engine_edge4" x1="544" y1="663" x2="544" y2="685" stroke="#11225e" stroke-width="2"/>
+        <line id="workflow_lineage_engine_edge5" x1="544" y1="663" x2="544" y2="641" stroke="#11225e" stroke-width="2"/>
+      </g>
+      <g id="workflow_lineage_engine_text">
+        <text id="workflow_lineage_engine_title" x="565" y="631" class="boxTitle">Lineage and descendant engine</text>
+        <text id="workflow_lineage_engine_body1" x="565" y="663" class="body">get_lineage(), add_lineage(),</text>
+        <text id="workflow_lineage_engine_body2" x="565" y="691" class="body">get_descendants(), count_taxa()</text>
+        <text id="workflow_lineage_engine_small" x="565" y="716" class="small">exact match first, synonym match second</text>
+      </g>
+    </g>
+
+    <g id="workflow_versioned_products">
+      <rect id="workflow_versioned_products_bg" x="478" y="757" rx="18" ry="18" width="362" height="120" fill="#ffffff" class="card-stroke-beige"/>
+      <g id="workflow_versioned_products_icon">
+        <circle id="workflow_versioned_products_icon_bg" cx="535" cy="817" r="34" fill="#f8efe0"/>
+        <ellipse id="workflow_versioned_products_icon_top" cx="535" cy="800" rx="15" ry="6" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="workflow_versioned_products_icon_body" d="M520 800 v22 c0 4 7 8 15 8 s15-4 15-8 v-22" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="workflow_versioned_products_icon_mid" d="M520 811 c0 4 7 8 15 8 s15-4 15-8" fill="none" stroke="#11225e" stroke-width="3"/>
+      </g>
+      <g id="workflow_versioned_products_text">
+        <text id="workflow_versioned_products_title" x="565" y="799" class="boxTitle">Versioned data products</text>
+        <text id="workflow_versioned_products_body" x="565" y="833" class="body">.rda lazy data and .rds mirrors</text>
+        <text id="workflow_versioned_products_small" x="565" y="860" class="small">no repeated Excel parsing during use</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="layer_output_cards" inkscape:groupmode="layer" inkscape:label="06 Output Cards">
+    <g id="output_taxonomy">
+      <rect id="output_taxonomy_bg" x="935" y="285" rx="18" ry="18" width="220" height="140" fill="#ffffff" class="card-stroke-purple"/>
+      <g id="output_taxonomy_icon">
+        <circle id="output_taxonomy_icon_bg" cx="985" cy="355" r="40" fill="#ece9fb"/>
+        <line id="output_taxonomy_line1" x1="975" y1="370" x2="975" y2="340" stroke="#11225e" stroke-width="3"/>
+        <line id="output_taxonomy_line2" x1="985" y1="370" x2="985" y2="325" stroke="#11225e" stroke-width="3"/>
+        <line id="output_taxonomy_line3" x1="995" y1="370" x2="995" y2="350" stroke="#11225e" stroke-width="3"/>
+        <circle id="output_taxonomy_node1" cx="975" cy="340" r="3" fill="#11225e"/>
+        <circle id="output_taxonomy_node2" cx="985" cy="325" r="3" fill="#11225e"/>
+        <circle id="output_taxonomy_node3" cx="995" cy="350" r="3" fill="#11225e"/>
+        <line id="output_taxonomy_baseline" x1="968" y1="363" x2="1002" y2="363" stroke="#11225e" stroke-width="3"/>
+      </g>
+      <g id="output_taxonomy_text">
+        <text id="output_taxonomy_title" x="1035" y="332" class="boxTitle">Taxonomy</text>
+        <text id="output_taxonomy_body1" x="1035" y="368" class="body">lineage lookup</text>
+        <text id="output_taxonomy_body2" x="1035" y="399" class="body">richness counts</text>
+      </g>
+    </g>
+
+    <g id="output_updates">
+      <rect id="output_updates_bg" x="1175" y="285" rx="18" ry="18" width="205" height="140" fill="#ffffff" class="card-stroke-purple"/>
+      <g id="output_updates_icon">
+        <circle id="output_updates_icon_bg" cx="1225" cy="355" r="40" fill="#ece9fb"/>
+        <circle id="output_updates_icon_clock" cx="1225" cy="355" r="22" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="output_updates_icon_hand" d="M1225 333 v22 l12 9" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="output_updates_icon_arrow" d="M1205 343 l-10 0 l6 -8" fill="none" stroke="#11225e" stroke-width="3"/>
+      </g>
+      <g id="output_updates_text">
+        <text id="output_updates_title" x="1275" y="332" class="boxTitle">Updates</text>
+        <text id="output_updates_body1" x="1275" y="368" class="body">version compare</text>
+        <text id="output_updates_body2" x="1275" y="399" class="body">change history</text>
+      </g>
+    </g>
+
+    <g id="output_genomes">
+      <rect id="output_genomes_bg" x="935" y="470" rx="18" ry="18" width="220" height="140" fill="#ffffff" class="card-stroke-purple"/>
+      <g id="output_genomes_icon">
+        <circle id="output_genomes_icon_bg" cx="985" cy="540" r="40" fill="#ece9fb"/>
+        <ellipse id="output_genomes_icon_top" cx="985" cy="522" rx="14" ry="6" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="output_genomes_icon_body" d="M971 522 v25 c0 4 6 7 14 7 s14-3 14-7 v-25" fill="none" stroke="#11225e" stroke-width="3"/>
+        <path id="output_genomes_icon_mid" d="M971 534 c0 4 6 7 14 7 s14-3 14-7" fill="none" stroke="#11225e" stroke-width="3"/>
+      </g>
+      <g id="output_genomes_text">
+        <text id="output_genomes_title" x="1035" y="523" class="boxTitle">Genomes</text>
+        <text id="output_genomes_body1" x="1035" y="558" class="body">coverage by clade</text>
+        <text id="output_genomes_body2" x="1035" y="589" class="body">BUSCO filtering</text>
+      </g>
+    </g>
+
+    <g id="output_sequences">
+      <rect id="output_sequences_bg" x="1175" y="470" rx="18" ry="18" width="205" height="140" fill="#ffffff" class="card-stroke-purple"/>
+      <g id="output_sequences_icon">
+        <circle id="output_sequences_icon_bg" cx="1225" cy="540" r="40" fill="#ece9fb"/>
+        <circle id="output_sequences_icon_glass" cx="1218" cy="533" r="15" fill="none" stroke="#11225e" stroke-width="3"/>
+        <line id="output_sequences_icon_handle" x1="1230" y1="545" x2="1245" y2="560" stroke="#11225e" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <g id="output_sequences_text">
+        <text id="output_sequences_title" x="1270" y="512" class="boxTitle">Sequences</text>
+        <text id="output_sequences_body1" x="1270" y="544" class="body">sequence search</text>
+        <text id="output_sequences_body2" x="1270" y="572" class="body">counts, cached</text>
+        <text id="output_sequences_body3" x="1270" y="600" class="body">queries for taxa</text>
+        <text id="output_sequences_body4" x="1270" y="626" class="body">and clades</text>
+      </g>
+    </g>
+
+    <g id="output_phylogenomic_support">
+      <rect id="output_phylogenomic_support_bg" x="935" y="675" rx="18" ry="18" width="445" height="200" fill="#ffffff" class="card-stroke-purple"/>
+      <g id="output_phylogenomic_support_icon">
+        <circle id="output_phylogenomic_support_icon_bg" cx="985" cy="745" r="40" fill="#ece9fb"/>
+        <circle id="output_phylogenomic_support_icon_head1" cx="973" cy="736" r="6" fill="#11225e"/>
+        <circle id="output_phylogenomic_support_icon_head2" cx="985" cy="736" r="6" fill="#11225e"/>
+        <circle id="output_phylogenomic_support_icon_head3" cx="997" cy="736" r="6" fill="#11225e"/>
+        <circle id="output_phylogenomic_support_icon_body1" cx="967" cy="753" r="6" fill="#11225e"/>
+        <circle id="output_phylogenomic_support_icon_body2" cx="979" cy="753" r="6" fill="#11225e"/>
+        <circle id="output_phylogenomic_support_icon_body3" cx="991" cy="753" r="6" fill="#11225e"/>
+        <circle id="output_phylogenomic_support_icon_body4" cx="1003" cy="753" r="6" fill="#11225e"/>
+      </g>
+      <g id="output_phylogenomic_support_text">
+        <text id="output_phylogenomic_support_title" x="1040" y="725" class="boxTitle">Phylogenomic sampling support</text>
+        <text id="output_phylogenomic_support_body1" x="1040" y="770" class="body">Prioritize high-quality representatives and</text>
+        <text id="output_phylogenomic_support_body2" x="1040" y="807" class="body">expose sampling gaps</text>
+        <text id="output_phylogenomic_support_small1" x="1040" y="845" class="small">coverage heatmaps, BUSCO distributions,</text>
+        <text id="output_phylogenomic_support_small2" x="1040" y="872" class="small">NCBI summaries, framework figures</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="layer_connectors" inkscape:groupmode="layer" inkscape:label="07 Connectors and Arrows">
+    <path id="arrow_curated_to_import" d="M385 358 H470" class="arrow-line"/>
+    <path id="arrow_genome_to_taxon_index" d="M385 545 H430 V509 H470" class="arrow-line"/>
+    <path id="arrow_busco_to_versioned_products" d="M385 732 H430 V817 H470" class="arrow-line"/>
+
+    <path id="arrow_workflow_1_to_2" d="M659 416 V447" class="arrow-line"/>
+    <path id="arrow_workflow_2_to_3" d="M659 570 V601" class="arrow-line"/>
+    <path id="arrow_workflow_3_to_4" d="M659 724 V755" class="arrow-line"/>
+
+    <path id="arrow_taxon_index_to_taxonomy" d="M840 509 H880 V355 H925" class="arrow-line"/>
+    <path id="arrow_lineage_to_genomes" d="M840 663 H925" class="arrow-line"/>
+    <path id="arrow_versioned_to_sampling" d="M840 817 H925" class="arrow-line"/>
+  </g>
+
+  <g id="layer_footer" inkscape:groupmode="layer" inkscape:label="08 Footer Banner">
+    <g id="footer_banner_group">
+      <rect id="footer_banner_bg" x="42" y="965" rx="18" ry="18" width="1356" height="72" fill="#04606a"/>
+      <g id="footer_banner_icon">
+        <circle id="footer_banner_icon_circle" cx="102" cy="1001" r="24" fill="none" stroke="#ffffff" stroke-width="4"/>
+        <path id="footer_banner_icon_check" d="M90 1001 l9 10 l17 -22" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <text id="footer_banner_text" x="157" y="1009" class="banner">PIPE-FRIENDLY TIBBLES + GGPLOT OUTPUTS FOR REPRODUCIBLE MANUSCRIPT WORKFLOWS</text>
+    </g>
+  </g>
+</svg>

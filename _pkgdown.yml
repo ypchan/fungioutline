@@ -1,0 +1,74 @@
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
+home:
+  title: fungioutline
+  description: >
+    Tidy tools for curated fungal taxonomic outlines, genome metadata, BUSCO
+    quality summaries, NCBI sequence availability checks, and phylogenomic
+    sampling support.
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search]
+
+reference:
+  - title: Packaged Data
+    contents:
+      - fungi_outline
+      - fungi_taxon_index
+      - fgtdb_genome_metadata
+  - title: Outline Import and Validation
+    contents:
+      - read_fungi_outline
+      - standardize_outline
+      - validate_fungi_outline
+  - title: Core Taxonomy
+    contents:
+      - build_taxon_index
+      - get_lineage
+      - add_lineage
+      - get_descendants
+      - count_taxa
+  - title: Outline Updates and History
+    contents:
+      - update_outline_data
+      - compare_outline_versions
+      - read_outline_history
+      - write_outline_history
+  - title: Genome Metadata and BUSCO
+    contents:
+      - read_genome_metadata
+      - validate_genome_metadata
+      - get_genomes
+      - summarize_genomes
+      - filter_genomes_by_quality
+      - classify_genome_quality
+      - summarize_busco
+      - check_genome_coverage
+  - title: NCBI Sequence Availability
+    contents:
+      - search_ncbi_sequences
+      - search_ncbi_sequence_counts
+      - cache_ncbi_result
+  - title: Visualization
+    contents:
+      - plot_taxon_richness
+      - plot_genome_coverage
+      - plot_busco_quality
+      - plot_taxonomic_heatmap
+      - plot_update_history
+      - plot_ncbi_sequence_counts
+      - plot_fungioutline_framework
+
+articles:
+  - title: Workflows
+    navbar: ~
+    contents:
+      - getting-started
+      - updating-outline-excel
+      - genome-coverage-busco-filtering
+      - ncbi-sequence-availability
+      - phylogenomic-sampling-support
