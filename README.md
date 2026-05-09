@@ -6,7 +6,7 @@ It connects an expert-curated fungal outline with public genome metadata, BUSCO
 quality summaries, optional NCBI sequence availability checks, and publication
 figures.
 
-![fungioutline framework](man/figures/fungioutline_framework_nature_methods.svg)
+![fungioutline framework](man/figures/fungioutline_framework.png)
 
 The package is designed around a simple principle: the raw Excel files are
 curated and archived once, then converted into fast R-native data objects for
