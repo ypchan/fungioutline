@@ -96,6 +96,16 @@ fo_genome_busco_count_columns <- function() {
     )
 }
 
+fo_busco_percent_count_map <- function() {
+    c(
+        C = "complete_buscos",
+        S = "complete_singlecopy_buscos",
+        D = "complete_duplicated_buscos",
+        F = "fragmented_buscos",
+        M = "missing_buscos"
+    )
+}
+
 fo_clean_genome_column_names <- function(x) {
     clean_names <- clean_column_names(x)
     canonical_columns <- fo_genome_expected_columns()
@@ -145,6 +155,8 @@ fo_standardize_genome_metadata <- function(data, trim_values = TRUE, empty_to_na
             )
     }
 
+    metadata <- fo_fill_busco_percentages(metadata)
+
     expected_columns <- fo_genome_expected_columns()
     ordered_columns <- c(
         intersect(expected_columns, names(metadata)),
@@ -153,6 +165,41 @@ fo_standardize_genome_metadata <- function(data, trim_values = TRUE, empty_to_na
 
     metadata |>
         dplyr::select(dplyr::all_of(ordered_columns))
+}
+
+fo_fill_busco_percentages <- function(data) {
+    data <- tibble::as_tibble(data)
+
+    if (!"total_buscos" %in% names(data)) {
+        return(data)
+    }
+
+    total_buscos <- fo_as_numeric_column(data$total_buscos)
+    count_map <- fo_busco_percent_count_map()
+
+    for (percent_column in names(count_map)) {
+        count_column <- unname(count_map[[percent_column]])
+
+        if (!count_column %in% names(data)) {
+            next
+        }
+
+        count_values <- fo_as_numeric_column(data[[count_column]])
+        computed <- dplyr::if_else(
+            !is.na(count_values) & !is.na(total_buscos) & total_buscos > 0,
+            100 * count_values / total_buscos,
+            NA_real_
+        )
+
+        if (percent_column %in% names(data)) {
+            existing <- fo_as_numeric_column(data[[percent_column]])
+            data[[percent_column]] <- dplyr::coalesce(existing, computed)
+        } else {
+            data[[percent_column]] <- computed
+        }
+    }
+
+    data
 }
 
 fo_add_missing_genome_rank_columns <- function(data) {
@@ -241,9 +288,7 @@ fo_empty_genome_summary <- function() {
         n_species = integer(),
         n_genera = integer(),
         n_ok = integer(),
-        n_high_quality = integer(),
-        mean_busco_complete = double(),
-        median_busco_complete = double()
+        n_high_quality = integer()
     )
 }
 
@@ -283,7 +328,7 @@ fo_empty_genome_coverage <- function() {
     )
 }
 
-fo_check_genome_rank <- function(rank, allow_null = FALSE) {
+fo_check_genome_rank <- function(rank, arg = "rank", allow_null = FALSE) {
     check_logical_scalar(allow_null, "allow_null")
 
     if (is.null(rank) && isTRUE(allow_null)) {
@@ -291,14 +336,14 @@ fo_check_genome_rank <- function(rank, allow_null = FALSE) {
     }
 
     if (!is.character(rank) || length(rank) != 1L || is.na(rank) || !nzchar(rank)) {
-        rlang::abort("`rank` must be a single genome metadata rank name.")
+        rlang::abort(glue::glue("`{arg}` must be a single genome metadata rank name."))
     }
 
     rank <- fo_normalize_taxon_name(rank)
 
     if (!rank %in% fo_genome_rank_columns()) {
         rlang::abort(glue::glue(
-            "`rank` must be one of: {paste(fo_genome_rank_columns(), collapse = ', ')}."
+            "`{arg}` must be one of the genome metadata ranks: {paste(fo_genome_rank_columns(), collapse = ', ')}."
         ))
     }
 
@@ -386,16 +431,13 @@ fo_summary_metrics <- function(data) {
             n_species = 0L,
             n_genera = 0L,
             n_ok = 0L,
-            n_high_quality = 0L,
-            mean_busco_complete = NA_real_,
-            median_busco_complete = NA_real_
+            n_high_quality = 0L
         ))
     }
 
     data <- data |>
         classify_genome_quality()
 
-    C_values <- if ("C" %in% names(data)) fo_as_numeric_column(data$C) else rep(NA_real_, nrow(data))
     ok_values <- if ("ok" %in% names(data)) fo_as_logical_column(data$ok) else rep(NA, nrow(data))
 
     tibble::tibble(
@@ -404,12 +446,6 @@ fo_summary_metrics <- function(data) {
         n_species = if ("species" %in% names(data)) dplyr::n_distinct(data$species, na.rm = TRUE) else 0L,
         n_genera = if ("genus" %in% names(data)) dplyr::n_distinct(data$genus, na.rm = TRUE) else 0L,
         n_ok = sum(ok_values, na.rm = TRUE),
-        n_high_quality = sum(data$genome_quality == "high_quality", na.rm = TRUE),
-        mean_busco_complete = mean(C_values, na.rm = TRUE),
-        median_busco_complete = stats::median(C_values, na.rm = TRUE)
-    ) |>
-        dplyr::mutate(
-            mean_busco_complete = dplyr::if_else(is.nan(.data$mean_busco_complete), NA_real_, .data$mean_busco_complete),
-            median_busco_complete = dplyr::if_else(is.nan(.data$median_busco_complete), NA_real_, .data$median_busco_complete)
-        )
+        n_high_quality = sum(data$genome_quality == "high_quality", na.rm = TRUE)
+    )
 }

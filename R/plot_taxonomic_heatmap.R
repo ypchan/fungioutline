@@ -50,10 +50,15 @@ plot_taxonomic_heatmap <- function(
         taxon_index = taxon_index,
         match_synonym = match_synonym
     ) |>
+        dplyr::filter(!is.na(.data$taxon_name), nzchar(.data$taxon_name)) |>
         dplyr::mutate(
             ancestor_label = paste(.data$input_taxon, .data$ancestor_rank, sep = " | "),
             taxon_name = stats::reorder(.data$taxon_name, .data$n_genomes)
         )
+    fo_check_nonempty_plot_data(
+        coverage,
+        "No descendant taxa were found for the requested `taxon` and `target_rank`; nothing can be plotted."
+    )
 
     plot <- ggplot2::ggplot(
         coverage,

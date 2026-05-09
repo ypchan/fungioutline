@@ -49,7 +49,7 @@ validation_report <- fungioutline::validate_fungi_outline(
 )
 
 validation_report |>
-    dplyr::filter(.data$status == "fail")
+    dplyr::filter(status == "fail")
 ```
 
 ## Look up lineages

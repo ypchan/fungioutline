@@ -105,9 +105,7 @@ phase4_genome_summary_columns <- function() {
         "n_species",
         "n_genera",
         "n_ok",
-        "n_high_quality",
-        "mean_busco_complete",
-        "median_busco_complete"
+        "n_high_quality"
     )
 }
 
@@ -143,7 +141,6 @@ phase4_coverage_columns <- function() {
         "order",
         "family",
         "genus",
-        "species",
         "source_row_id"
     )
 }

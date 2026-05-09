@@ -48,6 +48,14 @@ fo_check_plot_data_frame <- function(data, arg = "data") {
     tibble::as_tibble(data)
 }
 
+fo_check_nonempty_plot_data <- function(data, message) {
+    if (!is.data.frame(data) || nrow(data) == 0L) {
+        rlang::abort(message)
+    }
+
+    invisible(data)
+}
+
 fo_check_output_plot_args <- function(width, height, dpi) {
     if (!is.numeric(width) || length(width) != 1L || is.na(width) || width <= 0) {
         rlang::abort("`width` must be a single positive numeric value.")

@@ -33,7 +33,7 @@ genome_validation <- fungioutline::validate_genome_metadata(
 )
 
 genome_validation |>
-    dplyr::filter(.data$status == "fail")
+    dplyr::filter(status == "fail")
 ```
 
 The expected metadata includes taxonomic columns such as `phylum`, `class`,
@@ -50,7 +50,7 @@ genomes_quality <- genomes |>
     fungioutline::classify_genome_quality()
 
 genomes_quality |>
-    dplyr::count(.data$genome_quality)
+    dplyr::count(genome_quality)
 ```
 
 Adjust thresholds when your project uses stricter or looser standards:
@@ -111,7 +111,7 @@ fungioutline::summarize_genomes(
 ```
 
 The summary includes genome counts, accession counts, genome species and genus counts,
-BUSCO summaries, and quality counts.
+and quality counts.
 
 ## Check descendant coverage
 
@@ -123,7 +123,7 @@ coverage <- fungioutline::check_genome_coverage(
 )
 
 coverage |>
-    dplyr::filter(!.data$has_genome)
+    dplyr::filter(!has_genome)
 ```
 
 ## Visualize coverage and BUSCO quality

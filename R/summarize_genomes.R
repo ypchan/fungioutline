@@ -1,8 +1,8 @@
 #' Summarize genome availability and quality
 #'
 #' Summarizes genome availability, accessions, taxonomic sampling, `ok` status,
-#' high-quality genomes, and BUSCO completeness. Summaries can be generated for
-#' all genomes, grouped by a genome rank column, or scoped to one or more taxa.
+#' and high-quality genomes. Summaries can be generated for all genomes, grouped
+#' by a genome rank column, or scoped to one or more taxa.
 #'
 #' @param genome_metadata Genome metadata data frame. Defaults to the packaged
 #'   [fgtdb_genome_metadata] data.
@@ -36,7 +36,7 @@ summarize_genomes <- function(
     metadata <- fo_prepare_genome_metadata(genome_metadata)
 
     if (!is.null(by_rank)) {
-        by_rank <- fo_check_genome_rank(by_rank)
+        by_rank <- fo_check_genome_rank(by_rank, arg = "by_rank")
 
         if (!by_rank %in% fo_genome_rank_columns()) {
             rlang::abort("`by_rank` must be one of the genome metadata ranks: phylum, class, order, family, genus, species.")
@@ -123,9 +123,7 @@ summarize_genomes <- function(
                 "n_species",
                 "n_genera",
                 "n_ok",
-                "n_high_quality",
-                "mean_busco_complete",
-                "median_busco_complete"
+                "n_high_quality"
             )))
         ) |>
         tibble::as_tibble()

@@ -36,11 +36,16 @@ plot_ncbi_sequence_counts <- function(
     }
 
     plot_data <- ncbi_counts |>
+        dplyr::filter(!is.na(.data$count)) |>
         dplyr::mutate(
             display_taxon = dplyr::coalesce(.data$accepted_name, .data$input_taxon),
             display_taxon = stats::reorder(.data$display_taxon, .data$count),
             availability = dplyr::if_else(.data$has_sequences, "available", "not found")
         )
+    fo_check_nonempty_plot_data(
+        plot_data,
+        "No NCBI count rows with non-missing counts were found; nothing can be plotted."
+    )
 
     plot <- ggplot2::ggplot(
         plot_data,

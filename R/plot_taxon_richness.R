@@ -67,6 +67,10 @@ plot_taxon_richness <- function(
         ) |>
             dplyr::mutate(rank = fo_rank_factor(.data$rank))
     }
+    fo_check_nonempty_plot_data(
+        plot_data,
+        "No taxon richness rows were found for the requested input; nothing can be plotted."
+    )
 
     plot <- ggplot2::ggplot(
         plot_data,

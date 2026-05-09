@@ -52,10 +52,15 @@ plot_genome_coverage <- function(
     )
 
     coverage <- coverage |>
+        dplyr::filter(!is.na(.data$taxon_name), nzchar(.data$taxon_name)) |>
         dplyr::mutate(
             taxon_name = stats::reorder(.data$taxon_name, .data$n_genomes),
             coverage_status = dplyr::if_else(.data$has_genome, "available", "missing")
         )
+    fo_check_nonempty_plot_data(
+        coverage,
+        "No descendant taxa were found for the requested `taxon` and `target_rank`; nothing can be plotted."
+    )
 
     plot <- ggplot2::ggplot(
         coverage,

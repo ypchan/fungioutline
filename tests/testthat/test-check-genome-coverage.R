@@ -32,7 +32,7 @@ test_that("check_genome_coverage rejects invalid inputs", {
 
     expect_error(
         check_genome_coverage("Ascomycota", phase4_genome_metadata(), target_rank = "subclass", taxon_index = phase4_taxon_index()),
-        "genome metadata ranks"
+        "supported outline ranks"
     )
 })
 

@@ -47,6 +47,12 @@ plot_busco_quality <- function(
     metric <- fo_clean_genome_column_names(metric)
     fo_check_genome_column_exists(data, metric, "metric")
     data[[metric]] <- fo_as_numeric_column(data[[metric]])
+    data <- data |>
+        dplyr::filter(!is.na(.data[[metric]]))
+    fo_check_nonempty_plot_data(
+        data,
+        glue::glue("No non-missing `{metric}` values were found; nothing can be plotted.")
+    )
 
     if (is.null(group_col)) {
         plot <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[metric]], fill = .data$genome_quality)) +
@@ -73,6 +79,12 @@ plot_busco_quality <- function(
 
         group_col <- fo_clean_genome_column_names(group_col)
         fo_check_genome_column_exists(data, group_col, "group_col")
+        data <- data |>
+            dplyr::filter(!is.na(.data[[group_col]]), nzchar(as.character(.data[[group_col]])))
+        fo_check_nonempty_plot_data(
+            data,
+            glue::glue("No rows with non-missing `{metric}` and `{group_col}` values were found; nothing can be plotted.")
+        )
 
         plot <- ggplot2::ggplot(data, ggplot2::aes(x = .data[[group_col]], y = .data[[metric]], fill = .data[[group_col]])) +
             ggplot2::geom_boxplot(width = 0.62, outlier.alpha = 0.55) +

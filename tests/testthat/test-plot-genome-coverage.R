@@ -24,6 +24,33 @@ test_that("plot_genome_coverage works through synonym ancestors", {
     phase6_expect_ggplot(plot)
 })
 
+test_that("plot_genome_coverage works at class rank", {
+    phase6_skip_if_no_ggplot2()
+
+    plot <- plot_genome_coverage(
+        "Ascomycota",
+        genome_metadata = phase4_genome_metadata(),
+        target_rank = "class",
+        taxon_index = phase4_taxon_index()
+    )
+
+    phase6_expect_ggplot(plot)
+})
+
+test_that("plot_genome_coverage reports empty plot data", {
+    phase6_skip_if_no_ggplot2()
+
+    expect_error(
+        suppressWarnings(plot_genome_coverage(
+            "Fusarium",
+            genome_metadata = phase4_genome_metadata(),
+            target_rank = "genus",
+            taxon_index = phase4_taxon_index()
+        )),
+        "nothing can be plotted"
+    )
+})
+
 test_that("plot_genome_coverage rejects invalid genome metadata", {
     phase6_skip_if_no_ggplot2()
 

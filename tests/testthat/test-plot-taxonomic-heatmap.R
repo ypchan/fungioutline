@@ -34,6 +34,6 @@ test_that("plot_taxonomic_heatmap rejects invalid target rank", {
             target_rank = "subclass",
             taxon_index = phase4_taxon_index()
         ),
-        "genome metadata ranks"
+        "supported outline ranks"
     )
 })

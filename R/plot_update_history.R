@@ -30,6 +30,10 @@ plot_update_history <- function(
         dplyr::group_by(.data$version_id, .data$change_type) |>
         dplyr::summarise(n_changes = dplyr::n(), .groups = "drop") |>
         dplyr::filter(!is.na(.data$change_type), nzchar(.data$change_type))
+    fo_check_nonempty_plot_data(
+        plot_data,
+        "No update-history rows with change types were found; nothing can be plotted."
+    )
 
     plot <- ggplot2::ggplot(
         plot_data,

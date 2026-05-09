@@ -36,8 +36,8 @@ A tibble genome summary.
 }
 \description{
 Summarizes genome availability, accessions, taxonomic sampling, \code{ok} status,
-high-quality genomes, and BUSCO completeness. Summaries can be generated for
-all genomes, grouped by a genome rank column, or scoped to one or more taxa.
+and high-quality genomes. Summaries can be generated for all genomes, grouped
+by a genome rank column, or scoped to one or more taxa.
 }
 \examples{
 genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", accession = "GCA_1", C = 95, F = 2, M = 3, ok = TRUE)

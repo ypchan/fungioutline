@@ -23,6 +23,9 @@ test_that("summarize_genomes summarizes a resolved taxon", {
 
     expect_equal(result$input_taxon[[1]], "Ascomycota")
     expect_equal(result$n_genomes[[1]], 3L)
+    expect_gt(result$n_high_quality[[1]], 0L)
+    expect_false("mean_busco_complete" %in% names(result))
+    expect_false("median_busco_complete" %in% names(result))
 })
 
 test_that("summarize_genomes rejects invalid inputs", {

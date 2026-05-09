@@ -25,6 +25,38 @@ test_that("classify_genome_quality marks missing BUSCO values as unknown", {
     expect_identical(result$genome_quality[[1]], "unknown")
 })
 
+test_that("classify_genome_quality derives percentages from BUSCO counts", {
+    genomes <- tibble::tibble(
+        complete_buscos = 950,
+        fragmented_buscos = 20,
+        missing_buscos = 30,
+        total_buscos = 1000
+    )
+    result <- classify_genome_quality(genomes)
+
+    expect_equal(result$C[[1]], 95)
+    expect_equal(result$F[[1]], 2)
+    expect_equal(result$M[[1]], 3)
+    expect_identical(result$genome_quality[[1]], "high_quality")
+})
+
+test_that("classify_genome_quality fills missing percentages without overwriting existing values", {
+    genomes <- tibble::tibble(
+        C = 91,
+        F = NA_real_,
+        M = NA_real_,
+        complete_buscos = 950,
+        fragmented_buscos = 20,
+        missing_buscos = 30,
+        total_buscos = 1000
+    )
+    result <- classify_genome_quality(genomes)
+
+    expect_equal(result$C[[1]], 91)
+    expect_equal(result$F[[1]], 2)
+    expect_equal(result$M[[1]], 3)
+})
+
 test_that("classify_genome_quality returns a tibble with required columns", {
     result <- classify_genome_quality(phase4_genome_metadata())
 

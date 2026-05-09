@@ -60,6 +60,8 @@ test_that("genome helpers use packaged genome metadata by default", {
 
     expect_s3_class(summary, "tbl_df")
     expect_gt(summary$n_genomes[[1]], 0L)
+    expect_gt(summary$n_high_quality[[1]], 0L)
+    expect_false("mean_busco_complete" %in% names(summary))
 
     expect_s3_class(busco, "tbl_df")
     expect_gt(busco$n_genomes[[1]], 0L)

@@ -187,7 +187,7 @@ ascomycete_genera <- fungioutline::get_descendants(
 )
 
 ascomycete_genera |>
-    dplyr::arrange(.data$family, .data$descendant_name)
+    dplyr::arrange(family, descendant_name)
 ```
 
 ## Use Case 4: Genome Availability and BUSCO Filtering
@@ -221,7 +221,7 @@ coverage <- fungioutline::check_genome_coverage(
 )
 
 coverage |>
-    dplyr::filter(!.data$has_genome)
+    dplyr::filter(!has_genome)
 ```
 
 ## Use Case 5: BUSCO Summaries by Rank
@@ -289,20 +289,20 @@ gaps.
 coverage_quality <- coverage |>
     dplyr::left_join(
         high_quality_genomes |>
-            dplyr::count(.data$genus, name = "n_high_quality_genomes"),
+            dplyr::count(genus, name = "n_high_quality_genomes"),
         by = c("taxon_name" = "genus")
     ) |>
     dplyr::mutate(
-        n_high_quality_genomes = tidyr::replace_na(.data$n_high_quality_genomes, 0L),
+        n_high_quality_genomes = tidyr::replace_na(n_high_quality_genomes, 0L),
         sampling_priority = dplyr::case_when(
-            .data$n_high_quality_genomes > 0L ~ "genome_available",
-            .data$has_genome ~ "genome_needs_quality_review",
+            n_high_quality_genomes > 0L ~ "genome_available",
+            has_genome ~ "genome_needs_quality_review",
             TRUE ~ "sampling_gap"
         )
     )
 
 coverage_quality |>
-    dplyr::arrange(.data$sampling_priority, .data$taxon_name)
+    dplyr::arrange(sampling_priority, taxon_name)
 ```
 
 ## Use Case 8: Publication Figures

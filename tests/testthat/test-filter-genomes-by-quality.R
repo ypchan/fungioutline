@@ -44,3 +44,23 @@ test_that("filter_genomes_by_quality can require ok genomes", {
     expect_true(all(result$ok))
     expect_true("genome_quality" %in% names(result))
 })
+
+test_that("filter_genomes_by_quality works when BUSCO percentages are derived", {
+    genomes <- tibble::tibble(
+        genome_label = c("good", "bad"),
+        complete_buscos = c(950, 700),
+        fragmented_buscos = c(20, 100),
+        missing_buscos = c(30, 200),
+        total_buscos = c(1000, 1000),
+        ok = c(TRUE, TRUE)
+    )
+    result <- filter_genomes_by_quality(
+        genomes,
+        min_complete = 90,
+        max_missing = 10,
+        require_ok = TRUE
+    )
+
+    expect_equal(result$genome_label, "good")
+    expect_equal(result$C[[1]], 95)
+})
