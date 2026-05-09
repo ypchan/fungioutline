@@ -24,10 +24,11 @@ search_ncbi_sequences(
 \arguments{
 \item{taxon}{Character vector of taxon names.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{db}{NCBI Entrez database. Defaults to \code{"nuccore"}.}
 
@@ -61,9 +62,9 @@ count, IDs, cache status, and errors.
 }
 \description{
 Searches an NCBI Entrez database, \code{nuccore} by default, for one or more taxon
-names. When a taxon index or outline is supplied, taxon names are first
-resolved through \code{\link[=get_lineage]{get_lineage()}}. Results are cached by database, query, and
-\code{retmax}.
+names. Taxon names are first resolved through \code{\link[=get_lineage]{get_lineage()}} with the
+packaged \code{\link{fungi_taxon_index}} unless \code{outline} or \code{taxon_index} is supplied.
+Results are cached by database, query, and \code{retmax}.
 }
 \examples{
 \dontrun{

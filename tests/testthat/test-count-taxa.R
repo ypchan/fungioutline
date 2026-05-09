@@ -18,13 +18,13 @@ test_that("count_taxa supports by_rank", {
     expect_equal(genus_count, 3L)
 })
 
-test_that("count_taxa returns zero for ranks with no descendants", {
+test_that("count_taxa rejects species because the outline is genus-level", {
     idx <- build_taxon_index(toy_outline_phase2())
-    result <- count_taxa("Fusarium", by_rank = "species", taxon_index = idx)
 
-    expect_equal(nrow(result), 1L)
-    expect_identical(result$rank[[1]], "species")
-    expect_equal(result$n_taxa[[1]], 0L)
+    expect_error(
+        count_taxa("Fusarium", by_rank = "species", taxon_index = idx),
+        "unsupported ranks: species"
+    )
 })
 
 test_that("count_taxa supports vector taxon input", {

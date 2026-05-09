@@ -1,14 +1,16 @@
 #' Get genomes available for a taxon
 #'
 #' Resolves a taxon at any supported rank and returns matching genome metadata.
-#' Matching uses genome rank columns (`phylum`, `class`, `order`, `family`,
-#' `genus`, `species`) and the taxon index built from the curated outline.
+#' Matching uses genome rank columns and the genus-level taxon index built from
+#' the curated outline.
 #'
 #' @param taxon Character vector of taxon names.
-#' @param genome_metadata Genome metadata data frame.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param genome_metadata Genome metadata data frame. Defaults to the packaged
+#'   [fgtdb_genome_metadata] data.
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, resolve synonym taxon names.
 #' @param best_match Logical. If `TRUE`, keep one best taxon match per input.
 #' @param include_lineage Logical. If `TRUE`, append matched outline lineage
@@ -22,9 +24,11 @@
 #' idx <- fungioutline::build_taxon_index(outline)
 #' genomes <- tibble::tibble(genome_label = "g1", phylum = "Ascomycota", genus = "Fusarium", C = 95, F = 2, M = 3)
 #' fungioutline::get_genomes("Ascomycota", genomes, taxon_index = idx)
+#'
+#' fungioutline::get_genomes("Ascomycota")
 get_genomes <- function(
     taxon,
-    genome_metadata,
+    genome_metadata = fo_default_genome_metadata(),
     outline = NULL,
     taxon_index = NULL,
     match_synonym = TRUE,

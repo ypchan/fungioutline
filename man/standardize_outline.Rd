@@ -28,8 +28,9 @@ A tibble with standardized column names.
 \description{
 Converts fungal outline column names to snake case, trims character values,
 converts empty strings to \code{NA}, and returns a tibble. Required outline
-columns are moved before extra columns when present. Future \code{species} and
-\code{species_syn} columns are preserved if they are present and ignored if absent.
+columns are moved before extra columns when present. Species-level outline
+columns are dropped because this package treats the curated outline as a
+genus-level classification system.
 }
 \examples{
 outline <- tibble::tibble(Kingdom = "Fungi", Genus = " Fusarium ")

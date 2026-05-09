@@ -279,12 +279,33 @@ fo_empty_genome_coverage <- function() {
         order = character(),
         family = character(),
         genus = character(),
-        species = character(),
         source_row_id = integer()
     )
 }
 
-fo_prepare_genome_metadata <- function(genome_metadata) {
+fo_check_genome_rank <- function(rank, allow_null = FALSE) {
+    check_logical_scalar(allow_null, "allow_null")
+
+    if (is.null(rank) && isTRUE(allow_null)) {
+        return(NULL)
+    }
+
+    if (!is.character(rank) || length(rank) != 1L || is.na(rank) || !nzchar(rank)) {
+        rlang::abort("`rank` must be a single genome metadata rank name.")
+    }
+
+    rank <- fo_normalize_taxon_name(rank)
+
+    if (!rank %in% fo_genome_rank_columns()) {
+        rlang::abort(glue::glue(
+            "`rank` must be one of: {paste(fo_genome_rank_columns(), collapse = ', ')}."
+        ))
+    }
+
+    rank
+}
+
+fo_prepare_genome_metadata <- function(genome_metadata = fo_default_genome_metadata()) {
     if (!is.data.frame(genome_metadata)) {
         rlang::abort("`genome_metadata` must be a data frame or tibble.")
     }

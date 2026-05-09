@@ -4,12 +4,14 @@
 #' public genomes represented in genome metadata.
 #'
 #' @param taxon Character vector of taxon names.
-#' @param genome_metadata Genome metadata data frame.
+#' @param genome_metadata Genome metadata data frame. Defaults to the packaged
+#'   [fgtdb_genome_metadata] data.
 #' @param target_rank Descendant rank to check. Must be one of `phylum`,
-#'   `class`, `order`, `family`, `genus`, or `species`.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#'   `class`, `order`, `family`, or `genus`.
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, resolve synonym ancestor names.
 #'
 #' @return A tibble with descendant taxa, genome counts, and coverage status.
@@ -20,9 +22,11 @@
 #' idx <- fungioutline::build_taxon_index(outline)
 #' genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", C = 95, F = 2, M = 3)
 #' fungioutline::check_genome_coverage("Ascomycota", genomes, target_rank = "genus", taxon_index = idx)
+#'
+#' fungioutline::check_genome_coverage("Ascomycota", target_rank = "genus")
 check_genome_coverage <- function(
     taxon,
-    genome_metadata,
+    genome_metadata = fo_default_genome_metadata(),
     target_rank = "genus",
     outline = NULL,
     taxon_index = NULL,
@@ -36,7 +40,7 @@ check_genome_coverage <- function(
     target_rank <- fo_check_rank(target_rank)
 
     if (!target_rank %in% fo_genome_rank_columns()) {
-        rlang::abort("`target_rank` must be one of the genome metadata ranks: phylum, class, order, family, genus, species.")
+        rlang::abort("`target_rank` must be one of the supported outline ranks represented in genome metadata: phylum, class, order, family, genus.")
     }
 
     metadata <- fo_prepare_genome_metadata(genome_metadata)

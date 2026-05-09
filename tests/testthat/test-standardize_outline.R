@@ -23,9 +23,11 @@ test_that("standardize_outline rejects invalid inputs", {
     )
 })
 
-test_that("standardize_outline handles missing optional species columns and empty strings", {
+test_that("standardize_outline drops species columns and handles empty strings", {
     outline <- minimal_outline()
     outline$Genus_syn <- ""
+    outline$Species <- "Fusarium oxysporum"
+    outline$Species_syn <- "Fusarium cubense"
 
     result <- standardize_outline(outline)
 

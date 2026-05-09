@@ -4,11 +4,13 @@
 #' more focal taxa. The heatmap uses [check_genome_coverage()] internally.
 #'
 #' @param taxon Character vector of focal taxon names.
-#' @param genome_metadata Genome metadata data frame.
+#' @param genome_metadata Genome metadata data frame. Defaults to the packaged
+#'   [fgtdb_genome_metadata] data.
 #' @param target_rank Descendant rank to check.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, resolve synonym taxon names.
 #' @param output_path Optional file path. If supplied, the plot is saved.
 #' @param width Plot width used when saving.
@@ -23,9 +25,11 @@
 #' idx <- fungioutline::build_taxon_index(outline)
 #' genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", C = 95, F = 2, M = 3)
 #' fungioutline::plot_taxonomic_heatmap("Ascomycota", genomes, target_rank = "genus", taxon_index = idx)
+#'
+#' fungioutline::plot_taxonomic_heatmap("Ascomycota", target_rank = "genus")
 plot_taxonomic_heatmap <- function(
     taxon,
-    genome_metadata,
+    genome_metadata = fo_default_genome_metadata(),
     target_rank = "genus",
     outline = NULL,
     taxon_index = NULL,

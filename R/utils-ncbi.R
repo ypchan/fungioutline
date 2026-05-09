@@ -129,15 +129,6 @@ fo_build_ncbi_query <- function(taxon_name, rank = NA_character_, db = "nuccore"
 }
 
 fo_prepare_ncbi_taxa <- function(taxon, outline = NULL, taxon_index = NULL, match_synonym = TRUE) {
-    if (is.null(outline) && is.null(taxon_index)) {
-        return(tibble::tibble(
-            input_taxon = taxon,
-            accepted_name = taxon,
-            rank = NA_character_,
-            match_type = "raw"
-        ))
-    }
-
     get_lineage(
         taxon = taxon,
         outline = outline,

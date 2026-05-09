@@ -23,19 +23,19 @@ avoid hidden side effects unless their purpose is explicitly to write files.
 
 ## Core objects
 
-Most workflows use two reusable objects:
+Most workflows can use the packaged data directly:
 
-- `outline`: a standardized version of the curated outline table.
-- `idx`: a long-format taxon index built from accepted names and synonyms.
+- `fungi_outline`: a standardized version of the curated outline table.
+- `fungi_taxon_index`: a long-format taxon index built from accepted names and
+  synonyms.
+- `fgtdb_genome_metadata`: standardized FGTDB genome metadata.
 
 ```{r}
 outline <- fungioutline::fungi_outline
-idx <- fungioutline::fungi_taxon_index
 ```
 
-The current curated outline mainly reaches genus, but the index includes a
-`species` column and is designed to support `species` and `species_syn` when
-those columns are added later.
+The curated outline is intentionally genus-level. Species names are excluded
+from the outline because species circumscriptions change quickly.
 
 ## Validate the outline
 
@@ -60,13 +60,11 @@ all candidates are returned unless `best_match = TRUE`.
 
 ```{r}
 fungioutline::get_lineage(
-    c("Ascomycota", "Fusarium", "Gibberella"),
-    taxon_index = idx
+    c("Ascomycota", "Fusarium", "Gibberella")
 )
 
 fungioutline::get_lineage(
     "Fusarium",
-    taxon_index = idx,
     best_match = TRUE
 )
 ```
@@ -83,14 +81,14 @@ sampling_plan <- tibble::tibble(
 )
 
 sampling_plan |>
-    fungioutline::add_lineage(taxon_col = genus, taxon_index = idx) |>
+    fungioutline::add_lineage(taxon_col = genus) |>
     dplyr::select(
-        .data$isolate_id,
-        .data$genus,
-        .data$phylum,
-        .data$class,
-        .data$order,
-        .data$family
+        "isolate_id",
+        "genus",
+        "phylum",
+        "class",
+        "order",
+        "family"
     )
 ```
 
@@ -98,7 +96,7 @@ The same call also accepts a string:
 
 ```{r}
 sampling_plan |>
-    fungioutline::add_lineage(taxon_col = "genus", taxon_index = idx)
+    fungioutline::add_lineage(taxon_col = "genus")
 ```
 
 ## Count and retrieve descendants
@@ -108,14 +106,12 @@ need the descendant table itself.
 
 ```{r}
 fungioutline::count_taxa(
-    "Ascomycota",
-    taxon_index = idx
+    "Ascomycota"
 )
 
 fungioutline::get_descendants(
     "Ascomycota",
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 ```
 
@@ -125,12 +121,11 @@ Plot helpers return ggplot objects and save files only when `output_path` is
 supplied.
 
 ```{r}
-fungioutline::plot_taxon_richness(taxon_index = idx)
+fungioutline::plot_taxon_richness()
 
 fungioutline::plot_taxon_richness(
     taxon = "Ascomycota",
-    by_rank = "genus",
-    taxon_index = idx
+    by_rank = "genus"
 )
 ```
 
@@ -144,12 +139,9 @@ validation_report <- fungioutline::validate_fungi_outline(
     error = FALSE
 )
 
-idx <- fungioutline::fungi_taxon_index
-
 fungioutline::get_lineage(
-    c("Ascomycota", "Agaricus", "Fusarium"),
-    taxon_index = idx
+    c("Ascomycota", "Agaricus", "Fusarium")
 )
 
-fungioutline::count_taxa("Ascomycota", taxon_index = idx)
+fungioutline::count_taxa("Ascomycota")
 ```

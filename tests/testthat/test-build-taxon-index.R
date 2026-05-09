@@ -16,14 +16,13 @@ test_that("build_taxon_index includes accepted names and synonyms", {
     expect_true(any(idx$taxon_name == "Gibberella" & idx$is_synonym))
 })
 
-test_that("build_taxon_index handles absent species columns gracefully", {
+test_that("build_taxon_index does not include species as an outline rank", {
     outline <- toy_outline_phase2()
     expect_false("species" %in% names(outline))
 
     idx <- build_taxon_index(outline)
 
-    expect_true("species" %in% names(idx))
-    expect_true(all(is.na(idx$species)))
+    expect_false("species" %in% names(idx))
     expect_false(any(idx$rank == "species"))
 })
 

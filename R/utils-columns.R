@@ -24,6 +24,10 @@ outline_required_columns <- function() {
 }
 
 outline_future_columns <- function() {
+    character()
+}
+
+outline_deprecated_columns <- function() {
     c("species", "species_syn")
 }
 
@@ -31,8 +35,8 @@ outline_supported_columns <- function() {
     unique(c(outline_required_columns(), outline_future_columns()))
 }
 
-outline_rank_columns <- function(include_species = TRUE) {
-    columns <- c(
+outline_rank_columns <- function(include_species = FALSE) {
+    c(
         "kingdom",
         "subkingdom",
         "phylum",
@@ -43,16 +47,10 @@ outline_rank_columns <- function(include_species = TRUE) {
         "family",
         "genus"
     )
-
-    if (isTRUE(include_species)) {
-        columns <- c(columns, "species")
-    }
-
-    columns
 }
 
-outline_synonym_columns <- function(include_species = TRUE) {
-    columns <- c(
+outline_synonym_columns <- function(include_species = FALSE) {
+    c(
         "subkingdom_syn",
         "phylum_syn",
         "subphylum_syn",
@@ -61,12 +59,6 @@ outline_synonym_columns <- function(include_species = TRUE) {
         "family_syn",
         "genus_syn"
     )
-
-    if (isTRUE(include_species)) {
-        columns <- c(columns, "species_syn")
-    }
-
-    columns
 }
 
 outline_update_columns <- function() {

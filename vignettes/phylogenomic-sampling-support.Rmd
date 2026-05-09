@@ -20,15 +20,6 @@ The central idea is to combine curated taxonomy, lineage-aware genome coverage,
 BUSCO quality filters, and optional NCBI sequence checks before choosing taxa
 for downstream analysis.
 
-## Prepare inputs
-
-```{r}
-outline <- fungioutline::fungi_outline
-idx <- fungioutline::fungi_taxon_index
-
-genomes <- fungioutline::fgtdb_genome_metadata
-```
-
 ## Define a focal clade
 
 Start with a taxon at any supported rank.
@@ -38,7 +29,6 @@ focal_taxon <- "Ascomycota"
 
 lineage <- fungioutline::get_lineage(
     focal_taxon,
-    taxon_index = idx,
     best_match = TRUE
 )
 
@@ -49,8 +39,7 @@ lineage
 
 ```{r}
 richness <- fungioutline::count_taxa(
-    focal_taxon,
-    taxon_index = idx
+    focal_taxon
 )
 
 richness
@@ -64,9 +53,7 @@ or another rank.
 ```{r}
 coverage <- fungioutline::check_genome_coverage(
     focal_taxon,
-    genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 coverage |>
@@ -80,9 +67,7 @@ screening, or NCBI sequence checks.
 
 ```{r}
 candidate_genomes <- fungioutline::get_genomes(
-    focal_taxon,
-    genome_metadata = genomes,
-    taxon_index = idx
+    focal_taxon
 ) |>
     fungioutline::filter_genomes_by_quality(
         min_complete = 90,
@@ -91,7 +76,7 @@ candidate_genomes <- fungioutline::get_genomes(
     )
 ```
 
-If multiple genomes represent the same genus or species, use your project
+If multiple genomes represent the same genus, use your project
 criteria to select representatives. For example:
 
 ```{r}
@@ -130,7 +115,6 @@ missing_genome_taxa <- coverage_quality |>
 
 ncbi_counts <- fungioutline::search_ncbi_sequence_counts(
     missing_genome_taxa,
-    taxon_index = idx,
     db = "nuccore",
     cache_dir = "inst/extdata/ncbi-cache"
 )
@@ -143,9 +127,9 @@ sampling_table <- coverage_quality |>
     dplyr::left_join(
         ncbi_counts |>
             dplyr::select(
-                taxon_name = .data$accepted_name,
-                ncbi_count = .data$count,
-                ncbi_has_sequences = .data$has_sequences
+                taxon_name = "accepted_name",
+                ncbi_count = "count",
+                ncbi_has_sequences = "has_sequences"
             ),
         by = "taxon_name"
     ) |>
@@ -174,15 +158,12 @@ readr::write_csv(
 
 ```{r}
 fungioutline::plot_taxon_richness(
-    taxon = focal_taxon,
-    taxon_index = idx
+    taxon = focal_taxon
 )
 
 fungioutline::plot_genome_coverage(
     focal_taxon,
-    genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 fungioutline::plot_fungioutline_framework()

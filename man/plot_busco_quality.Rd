@@ -5,7 +5,7 @@
 \title{Plot BUSCO quality distributions}
 \usage{
 plot_busco_quality(
-  genome_metadata,
+  genome_metadata = fo_default_genome_metadata(),
   metric = "C",
   group_col = NULL,
   bins = 30,
@@ -16,7 +16,8 @@ plot_busco_quality(
 )
 }
 \arguments{
-\item{genome_metadata}{Genome metadata data frame.}
+\item{genome_metadata}{Genome metadata data frame. Defaults to the packaged
+\code{\link{fgtdb_genome_metadata}} data.}
 
 \item{metric}{BUSCO metric column to plot. Defaults to \code{C}.}
 
@@ -42,4 +43,6 @@ boxplots when \code{group_col} is supplied.
 \examples{
 genomes <- tibble::tibble(C = c(95, 80), F = c(2, 10), M = c(3, 10), phylum = c("A", "B"))
 fungioutline::plot_busco_quality(genomes)
+
+fungioutline::plot_busco_quality()
 }

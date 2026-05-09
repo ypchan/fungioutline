@@ -6,9 +6,10 @@
 #' @param taxon Character vector of taxon names.
 #' @param target_rank Optional descendant rank to return. If `NULL`, all lower
 #'   ranks are returned.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, match synonym ancestor names.
 #'
 #' @return A tibble of descendant taxa and their lineage columns.
@@ -16,6 +17,8 @@
 #'
 #' @examples
 #' outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
+#' fungioutline::get_descendants("Ascomycota", target_rank = "genus")
+#'
 #' idx <- fungioutline::build_taxon_index(outline)
 #' fungioutline::get_descendants("Ascomycota", target_rank = "genus", taxon_index = idx)
 get_descendants <- function(

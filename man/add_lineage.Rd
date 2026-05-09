@@ -21,10 +21,11 @@ add_lineage(
 \item{taxon_col}{Column containing taxon names. Supports bare column names
 such as \code{genus} and strings such as \code{"genus"}.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{match_synonym}{Logical. If \code{TRUE}, match synonyms when no accepted name
 match exists.}
@@ -49,4 +50,7 @@ outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fus
 idx <- fungioutline::build_taxon_index(outline)
 tibble::tibble(genus = "Fusarium") |>
     fungioutline::add_lineage(taxon_col = genus, taxon_index = idx)
+
+tibble::tibble(genus = "Fusarium") |>
+    fungioutline::add_lineage(taxon_col = genus)
 }

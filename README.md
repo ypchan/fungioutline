@@ -42,7 +42,8 @@ install.packages(c(
 Install the local package:
 
 ```r
-devtools::install("D:/BaiduSyncdisk/github/fungioutline")
+library(remotes)
+remotes::install_github("ypchan/fungioutline")
 ```
 
 ## Built-In Data
@@ -59,20 +60,28 @@ data:
 - `data/fungi_taxon_index.rda`
 - `data/fgtdb_genome_metadata.rda`
 
+The curated outline and taxon index stop at genus. Species labels are retained
+only in genome metadata, where they describe genome records rather than outline
+taxonomy.
+
 RDS mirrors are also written for direct file-based workflows:
 
 - `inst/extdata/fungi_outline.rds`
 - `inst/extdata/fungi_taxon_index.rds`
 - `inst/extdata/fgtdb_genome_metadata.rds`
 
-After installation, access the data directly:
+After installation, the built-in data are available by their exported names, and
+core helpers use them by default:
 
 ```r
 library(fungioutline)
 
-outline <- fungioutline::fungi_outline
-idx <- fungioutline::fungi_taxon_index
-genomes <- fungioutline::fgtdb_genome_metadata
+fungioutline::fungi_outline
+fungioutline::fungi_taxon_index
+fungioutline::fgtdb_genome_metadata
+
+fungioutline::get_lineage("Ascomycota")
+fungioutline::get_genomes("Ascomycota")
 ```
 
 This avoids repeated Excel parsing and makes ordinary lineage, genome coverage,
@@ -83,21 +92,14 @@ and plotting workflows much faster.
 ```r
 library(fungioutline)
 
-outline <- fungioutline::fungi_outline
-idx <- fungioutline::fungi_taxon_index
-genomes <- fungioutline::fgtdb_genome_metadata
-
-fungioutline::get_lineage("Ascomycota", taxon_index = idx)
+fungioutline::get_lineage("Ascomycota")
 
 fungioutline::count_taxa(
-    "Ascomycota",
-    taxon_index = idx
+    "Ascomycota"
 )
 
 fungioutline::summarize_genomes(
-    genomes,
-    taxon = "Ascomycota",
-    taxon_index = idx
+    taxon = "Ascomycota"
 )
 ```
 
@@ -108,23 +110,22 @@ Resolve accepted names and synonyms while preserving ambiguity.
 ```r
 lineages <- fungioutline::get_lineage(
     c("Ascomycota", "Basidiomycota", "Fusarium", "Gibberella"),
-    taxon_index = idx,
     match_synonym = TRUE,
     best_match = FALSE
 )
 
 lineages |>
     dplyr::select(
-        .data$input_taxon,
-        .data$matched_name,
-        .data$accepted_name,
-        .data$rank,
-        .data$match_type,
-        .data$phylum,
-        .data$class,
-        .data$order,
-        .data$family,
-        .data$genus
+        "input_taxon",
+        "matched_name",
+        "accepted_name",
+        "rank",
+        "match_type",
+        "phylum",
+        "class",
+        "order",
+        "family",
+        "genus"
     )
 ```
 
@@ -133,7 +134,6 @@ Use `best_match = TRUE` when each input taxon should produce one best row:
 ```r
 fungioutline::get_lineage(
     c("Agaricus", "Fusarium"),
-    taxon_index = idx,
     best_match = TRUE
 )
 ```
@@ -149,15 +149,15 @@ sampling_plan <- tibble::tibble(
 )
 
 sampling_plan |>
-    fungioutline::add_lineage(taxon_col = genus, taxon_index = idx) |>
+    fungioutline::add_lineage(taxon_col = genus) |>
     dplyr::select(
-        .data$isolate_id,
-        .data$genus,
-        .data$match_type,
-        .data$phylum,
-        .data$class,
-        .data$order,
-        .data$family
+        "isolate_id",
+        "genus",
+        "match_type",
+        "phylum",
+        "class",
+        "order",
+        "family"
     )
 ```
 
@@ -165,7 +165,7 @@ String input is equivalent:
 
 ```r
 sampling_plan |>
-    fungioutline::add_lineage(taxon_col = "genus", taxon_index = idx)
+    fungioutline::add_lineage(taxon_col = "genus")
 ```
 
 ## Use Case 3: Count and Retrieve Descendant Taxa
@@ -174,8 +174,7 @@ Count richness below a clade:
 
 ```r
 fungioutline::count_taxa(
-    "Ascomycota",
-    taxon_index = idx
+    "Ascomycota"
 )
 ```
 
@@ -184,8 +183,7 @@ Retrieve descendants at a target rank:
 ```r
 ascomycete_genera <- fungioutline::get_descendants(
     "Ascomycota",
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 ascomycete_genera |>
@@ -198,16 +196,14 @@ Summarize genome availability for one or more clades:
 
 ```r
 fungioutline::summarize_genomes(
-    genomes,
-    taxon = c("Ascomycota", "Basidiomycota"),
-    taxon_index = idx
+    taxon = c("Ascomycota", "Basidiomycota")
 )
 ```
 
 Classify and filter genomes:
 
 ```r
-high_quality_genomes <- genomes |>
+high_quality_genomes <- fungioutline::fgtdb_genome_metadata |>
     fungioutline::classify_genome_quality() |>
     fungioutline::filter_genomes_by_quality(
         min_complete = 90,
@@ -221,9 +217,7 @@ Check which descendant genera under a clade have public genomes:
 ```r
 coverage <- fungioutline::check_genome_coverage(
     "Ascomycota",
-    genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 coverage |>
@@ -234,12 +228,10 @@ coverage |>
 
 ```r
 fungioutline::summarize_busco(
-    genomes,
     by = "phylum"
 )
 
 fungioutline::summarize_busco(
-    genomes,
     by = c("phylum", "class")
 )
 ```
@@ -247,10 +239,9 @@ fungioutline::summarize_busco(
 Visualize BUSCO completeness:
 
 ```r
-fungioutline::plot_busco_quality(genomes)
+fungioutline::plot_busco_quality()
 
 fungioutline::plot_busco_quality(
-    genomes,
     metric = "C",
     group_col = "phylum"
 )
@@ -264,7 +255,6 @@ NCBI searches are serial by default, cached, and use
 ```r
 ncbi_counts <- fungioutline::search_ncbi_sequence_counts(
     c("Agaricus", "Fusarium"),
-    taxon_index = idx,
     db = "nuccore",
     cache_dir = "inst/extdata/ncbi-cache",
     delay_sec = 0.34
@@ -272,11 +262,11 @@ ncbi_counts <- fungioutline::search_ncbi_sequence_counts(
 
 ncbi_counts |>
     dplyr::select(
-        .data$input_taxon,
-        .data$accepted_name,
-        .data$count,
-        .data$has_sequences,
-        .data$cached
+        "input_taxon",
+        "accepted_name",
+        "count",
+        "has_sequences",
+        "cached"
     )
 ```
 
@@ -285,7 +275,6 @@ Retrieve IDs when needed:
 ```r
 fungioutline::search_ncbi_sequences(
     "Fusarium",
-    taxon_index = idx,
     db = "nuccore",
     retmax = 20
 )
@@ -322,20 +311,16 @@ Plot functions return ggplot objects and save files only when `output_path` is
 supplied.
 
 ```r
-fungioutline::plot_taxon_richness(taxon_index = idx)
+fungioutline::plot_taxon_richness()
 
 fungioutline::plot_genome_coverage(
     "Ascomycota",
-    genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 fungioutline::plot_taxonomic_heatmap(
     "Ascomycota",
-    genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 fungioutline::plot_fungioutline_framework(

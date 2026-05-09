@@ -6,9 +6,10 @@
 #' @param taxon Character vector of taxon names.
 #' @param by_rank Optional character vector of ranks to count. If `NULL`, all
 #'   lower ranks are counted for each matched ancestor.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, match synonym ancestor names.
 #'
 #' @return A tibble with `input_taxon`, `ancestor_name`, `ancestor_rank`, `rank`,
@@ -17,6 +18,8 @@
 #'
 #' @examples
 #' outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
+#' fungioutline::count_taxa("Ascomycota", by_rank = "genus")
+#'
 #' idx <- fungioutline::build_taxon_index(outline)
 #' fungioutline::count_taxa("Ascomycota", by_rank = "genus", taxon_index = idx)
 count_taxa <- function(

@@ -23,10 +23,11 @@ search_ncbi_sequence_counts(
 \arguments{
 \item{taxon}{Character vector of taxon names.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{db}{NCBI Entrez database. Defaults to \code{"nuccore"}.}
 

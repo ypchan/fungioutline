@@ -5,9 +5,10 @@
 #' returned as all candidate lineages unless `best_match = TRUE`.
 #'
 #' @param taxon Character vector of taxon names.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, use synonym matches when no accepted
 #'   name match is found.
 #' @param ignore_case Logical. If `TRUE`, match using normalized lower-case
@@ -28,6 +29,8 @@
 #'     genus = "Fusarium",
 #'     genus_syn = "Gibberella"
 #' )
+#' fungioutline::get_lineage("Gibberella")
+#'
 #' idx <- fungioutline::build_taxon_index(outline)
 #' fungioutline::get_lineage("Gibberella", taxon_index = idx)
 get_lineage <- function(
@@ -190,7 +193,6 @@ fo_unmatched_lineage_row <- function(one_input) {
         order = NA_character_,
         family = NA_character_,
         genus = NA_character_,
-        species = NA_character_,
         source_row_id = NA_integer_,
         updated_time = NA_character_,
         update_type = NA_character_,

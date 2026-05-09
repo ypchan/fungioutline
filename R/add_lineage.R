@@ -7,9 +7,10 @@
 #' @param data A data frame or tibble.
 #' @param taxon_col Column containing taxon names. Supports bare column names
 #'   such as `genus` and strings such as `"genus"`.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param match_synonym Logical. If `TRUE`, match synonyms when no accepted name
 #'   match exists.
 #' @param best_match Logical. If `TRUE`, keep one best lineage per input row.
@@ -25,6 +26,9 @@
 #' idx <- fungioutline::build_taxon_index(outline)
 #' tibble::tibble(genus = "Fusarium") |>
 #'     fungioutline::add_lineage(taxon_col = genus, taxon_index = idx)
+#'
+#' tibble::tibble(genus = "Fusarium") |>
+#'     fungioutline::add_lineage(taxon_col = genus)
 add_lineage <- function(
     data,
     taxon_col,

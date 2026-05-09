@@ -3,9 +3,10 @@
 #' Visualizes accepted taxon richness across ranks for a full taxon index or
 #' descendant richness below one or more focal taxa.
 #'
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param taxon Optional focal taxon names. If supplied, descendant counts are
 #'   plotted with [count_taxa()].
 #' @param by_rank Optional ranks to count when `taxon` is supplied.
@@ -20,6 +21,8 @@
 #'
 #' @examples
 #' outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
+#' fungioutline::plot_taxon_richness()
+#'
 #' idx <- fungioutline::build_taxon_index(outline)
 #' fungioutline::plot_taxon_richness(taxon_index = idx)
 plot_taxon_richness <- function(

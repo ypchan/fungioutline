@@ -6,7 +6,7 @@
 \usage{
 get_genomes(
   taxon,
-  genome_metadata,
+  genome_metadata = fo_default_genome_metadata(),
   outline = NULL,
   taxon_index = NULL,
   match_synonym = TRUE,
@@ -17,12 +17,14 @@ get_genomes(
 \arguments{
 \item{taxon}{Character vector of taxon names.}
 
-\item{genome_metadata}{Genome metadata data frame.}
+\item{genome_metadata}{Genome metadata data frame. Defaults to the packaged
+\code{\link{fgtdb_genome_metadata}} data.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{match_synonym}{Logical. If \code{TRUE}, resolve synonym taxon names.}
 
@@ -36,12 +38,14 @@ A tibble of matching genome metadata rows.
 }
 \description{
 Resolves a taxon at any supported rank and returns matching genome metadata.
-Matching uses genome rank columns (\code{phylum}, \code{class}, \code{order}, \code{family},
-\code{genus}, \code{species}) and the taxon index built from the curated outline.
+Matching uses genome rank columns and the genus-level taxon index built from
+the curated outline.
 }
 \examples{
 outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
 idx <- fungioutline::build_taxon_index(outline)
 genomes <- tibble::tibble(genome_label = "g1", phylum = "Ascomycota", genus = "Fusarium", C = 95, F = 2, M = 3)
 fungioutline::get_genomes("Ascomycota", genomes, taxon_index = idx)
+
+fungioutline::get_genomes("Ascomycota")
 }

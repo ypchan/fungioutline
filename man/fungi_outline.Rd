@@ -6,7 +6,8 @@
 \title{Standardized curated fungal outline}
 \format{
 A tibble with one row per curated outline record and standardized
-taxonomy, synonym, and update metadata columns.
+taxonomy, synonym, and update metadata columns. The curated outline is
+genus-level and does not include species-rank outline columns.
 }
 \source{
 \code{data-raw/outline_2025.10.20.xlsx}

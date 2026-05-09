@@ -17,10 +17,11 @@ plot_taxon_richness(
 )
 }
 \arguments{
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{taxon}{Optional focal taxon names. If supplied, descendant counts are
 plotted with \code{\link[=count_taxa]{count_taxa()}}.}
@@ -46,6 +47,8 @@ descendant richness below one or more focal taxa.
 }
 \examples{
 outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
+fungioutline::plot_taxon_richness()
+
 idx <- fungioutline::build_taxon_index(outline)
 fungioutline::plot_taxon_richness(taxon_index = idx)
 }

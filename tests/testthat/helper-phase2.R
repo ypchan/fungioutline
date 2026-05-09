@@ -27,7 +27,6 @@ phase2_index_columns <- function() {
         "order",
         "family",
         "genus",
-        "species",
         "source_row_id",
         "updated_time",
         "update_type",
@@ -54,7 +53,6 @@ phase2_lineage_columns <- function() {
         "order",
         "family",
         "genus",
-        "species",
         "source_row_id",
         "updated_time",
         "update_type",
@@ -79,7 +77,6 @@ phase2_descendant_columns <- function() {
         "order",
         "family",
         "genus",
-        "species",
         "source_row_id"
     )
 }

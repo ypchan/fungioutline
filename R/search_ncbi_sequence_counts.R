@@ -4,9 +4,10 @@
 #' that only record counts are requested and returned.
 #'
 #' @param taxon Character vector of taxon names.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param db NCBI Entrez database. Defaults to `"nuccore"`.
 #' @param match_synonym Logical. If `TRUE`, resolve synonym taxon names.
 #' @param exact Logical. If `TRUE`, quote the taxon name in the NCBI Organism

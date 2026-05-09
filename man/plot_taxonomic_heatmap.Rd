@@ -6,7 +6,7 @@
 \usage{
 plot_taxonomic_heatmap(
   taxon,
-  genome_metadata,
+  genome_metadata = fo_default_genome_metadata(),
   target_rank = "genus",
   outline = NULL,
   taxon_index = NULL,
@@ -20,14 +20,16 @@ plot_taxonomic_heatmap(
 \arguments{
 \item{taxon}{Character vector of focal taxon names.}
 
-\item{genome_metadata}{Genome metadata data frame.}
+\item{genome_metadata}{Genome metadata data frame. Defaults to the packaged
+\code{\link{fgtdb_genome_metadata}} data.}
 
 \item{target_rank}{Descendant rank to check.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{match_synonym}{Logical. If \code{TRUE}, resolve synonym taxon names.}
 
@@ -51,4 +53,6 @@ outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fus
 idx <- fungioutline::build_taxon_index(outline)
 genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", C = 95, F = 2, M = 3)
 fungioutline::plot_taxonomic_heatmap("Ascomycota", genomes, target_rank = "genus", taxon_index = idx)
+
+fungioutline::plot_taxonomic_heatmap("Ascomycota", target_rank = "genus")
 }

@@ -8,8 +8,7 @@ fo_rank_levels <- function() {
         "subclass",
         "order",
         "family",
-        "genus",
-        "species"
+        "genus"
     )
 }
 
@@ -157,7 +156,6 @@ fo_empty_taxon_index <- function() {
         order = character(),
         family = character(),
         genus = character(),
-        species = character(),
         source_row_id = integer(),
         updated_time = character(),
         update_type = character(),
@@ -184,7 +182,6 @@ fo_empty_lineage_result <- function() {
         order = character(),
         family = character(),
         genus = character(),
-        species = character(),
         source_row_id = integer(),
         updated_time = character(),
         update_type = character(),
@@ -209,7 +206,6 @@ fo_empty_descendants <- function() {
         order = character(),
         family = character(),
         genus = character(),
-        species = character(),
         source_row_id = integer()
     )
 }
@@ -229,10 +225,10 @@ fo_prepare_taxon_index <- function(outline = NULL, taxon_index = NULL, include_s
 
     if (is.null(taxon_index)) {
         if (is.null(outline)) {
-            rlang::abort("Either `outline` or `taxon_index` must be supplied.")
+            taxon_index <- fo_default_taxon_index()
+        } else {
+            taxon_index <- build_taxon_index(outline, include_synonyms = include_synonyms)
         }
-
-        taxon_index <- build_taxon_index(outline, include_synonyms = include_synonyms)
     } else if (!is.data.frame(taxon_index)) {
         rlang::abort("`taxon_index` must be a data frame or tibble.")
     } else {
@@ -245,6 +241,11 @@ fo_prepare_taxon_index <- function(outline = NULL, taxon_index = NULL, include_s
         rlang::abort(glue::glue(
             "`taxon_index` is missing required columns: {paste(missing_columns, collapse = ', ')}."
         ))
+    }
+
+    if (!isTRUE(include_synonyms)) {
+        taxon_index <- taxon_index |>
+            dplyr::filter(!.data$is_synonym)
     }
 
     taxon_index

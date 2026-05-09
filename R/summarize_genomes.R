@@ -4,12 +4,14 @@
 #' high-quality genomes, and BUSCO completeness. Summaries can be generated for
 #' all genomes, grouped by a genome rank column, or scoped to one or more taxa.
 #'
-#' @param genome_metadata Genome metadata data frame.
+#' @param genome_metadata Genome metadata data frame. Defaults to the packaged
+#'   [fgtdb_genome_metadata] data.
 #' @param taxon Optional character vector of taxon names to resolve through the
 #'   taxon index before summarizing.
-#' @param outline Optional standardized outline used to build a taxon index when
-#'   `taxon_index` is not supplied.
-#' @param taxon_index Optional taxon index from [build_taxon_index()].
+#' @param outline Optional standardized outline used to build a taxon index.
+#' @param taxon_index Optional taxon index from [build_taxon_index()]. If both
+#'   `outline` and `taxon_index` are `NULL`, the packaged
+#'   [fungi_taxon_index] data is used.
 #' @param by_rank Optional genome rank column for grouped summaries when
 #'   `taxon` is `NULL`.
 #' @param match_synonym Logical. If `TRUE`, resolve synonym taxon names.
@@ -20,8 +22,10 @@
 #' @examples
 #' genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", accession = "GCA_1", C = 95, F = 2, M = 3, ok = TRUE)
 #' fungioutline::summarize_genomes(genomes, by_rank = "phylum")
+#'
+#' fungioutline::summarize_genomes(by_rank = "phylum")
 summarize_genomes <- function(
-    genome_metadata,
+    genome_metadata = fo_default_genome_metadata(),
     taxon = NULL,
     outline = NULL,
     taxon_index = NULL,
@@ -32,7 +36,7 @@ summarize_genomes <- function(
     metadata <- fo_prepare_genome_metadata(genome_metadata)
 
     if (!is.null(by_rank)) {
-        by_rank <- fo_check_rank(by_rank)
+        by_rank <- fo_check_genome_rank(by_rank)
 
         if (!by_rank %in% fo_genome_rank_columns()) {
             rlang::abort("`by_rank` must be one of the genome metadata ranks: phylum, class, order, family, genus, species.")

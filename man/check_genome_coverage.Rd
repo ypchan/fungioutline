@@ -6,7 +6,7 @@
 \usage{
 check_genome_coverage(
   taxon,
-  genome_metadata,
+  genome_metadata = fo_default_genome_metadata(),
   target_rank = "genus",
   outline = NULL,
   taxon_index = NULL,
@@ -16,15 +16,17 @@ check_genome_coverage(
 \arguments{
 \item{taxon}{Character vector of taxon names.}
 
-\item{genome_metadata}{Genome metadata data frame.}
+\item{genome_metadata}{Genome metadata data frame. Defaults to the packaged
+\code{\link{fgtdb_genome_metadata}} data.}
 
 \item{target_rank}{Descendant rank to check. Must be one of \code{phylum},
-\code{class}, \code{order}, \code{family}, \code{genus}, or \code{species}.}
+\code{class}, \code{order}, \code{family}, or \code{genus}.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{match_synonym}{Logical. If \code{TRUE}, resolve synonym ancestor names.}
 }
@@ -40,4 +42,6 @@ outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fus
 idx <- fungioutline::build_taxon_index(outline)
 genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", C = 95, F = 2, M = 3)
 fungioutline::check_genome_coverage("Ascomycota", genomes, target_rank = "genus", taxon_index = idx)
+
+fungioutline::check_genome_coverage("Ascomycota", target_rank = "genus")
 }

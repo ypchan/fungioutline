@@ -3,7 +3,8 @@
 #' Visualizes a BUSCO metric, `C` by default, as a histogram or as grouped
 #' boxplots when `group_col` is supplied.
 #'
-#' @param genome_metadata Genome metadata data frame.
+#' @param genome_metadata Genome metadata data frame. Defaults to the packaged
+#'   [fgtdb_genome_metadata] data.
 #' @param metric BUSCO metric column to plot. Defaults to `C`.
 #' @param group_col Optional grouping column for boxplots.
 #' @param bins Number of histogram bins when `group_col` is `NULL`.
@@ -18,8 +19,10 @@
 #' @examples
 #' genomes <- tibble::tibble(C = c(95, 80), F = c(2, 10), M = c(3, 10), phylum = c("A", "B"))
 #' fungioutline::plot_busco_quality(genomes)
+#'
+#' fungioutline::plot_busco_quality()
 plot_busco_quality <- function(
-    genome_metadata,
+    genome_metadata = fo_default_genome_metadata(),
     metric = "C",
     group_col = NULL,
     bins = 30,

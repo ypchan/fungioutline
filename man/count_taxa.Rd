@@ -18,10 +18,11 @@ count_taxa(
 \item{by_rank}{Optional character vector of ranks to count. If \code{NULL}, all
 lower ranks are counted for each matched ancestor.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{match_synonym}{Logical. If \code{TRUE}, match synonym ancestor names.}
 }
@@ -35,6 +36,8 @@ names, optionally restricted to selected lower ranks.
 }
 \examples{
 outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
+fungioutline::count_taxa("Ascomycota", by_rank = "genus")
+
 idx <- fungioutline::build_taxon_index(outline)
 fungioutline::count_taxa("Ascomycota", by_rank = "genus", taxon_index = idx)
 }

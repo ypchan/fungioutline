@@ -5,7 +5,8 @@
 #' `data-raw/prepare_package_data.R`.
 #'
 #' @format A tibble with one row per curated outline record and standardized
-#'   taxonomy, synonym, and update metadata columns.
+#'   taxonomy, synonym, and update metadata columns. The curated outline is
+#'   genus-level and does not include species-rank outline columns.
 #' @source `data-raw/outline_2025.10.20.xlsx`
 #' @examples
 #' data(fungi_outline)
@@ -19,8 +20,8 @@
 #' clade-level summaries without rebuilding the index from Excel.
 #'
 #' @format A tibble with taxon names, normalized matching keys, accepted names,
-#'   ranks, synonym status, lineage columns, source row IDs, and update
-#'   metadata.
+#'   ranks from kingdom through genus, synonym status, lineage columns, source
+#'   row IDs, and update metadata.
 #' @source Generated from [fungi_outline] by `data-raw/prepare_package_data.R`.
 #' @examples
 #' data(fungi_taxon_index)

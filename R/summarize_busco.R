@@ -3,7 +3,8 @@
 #' Summarizes BUSCO percentage and count columns for all genomes or by one or
 #' more grouping columns.
 #'
-#' @param data A genome metadata data frame.
+#' @param data A genome metadata data frame. Defaults to the packaged
+#'   [fgtdb_genome_metadata] data.
 #' @param by Optional character vector of grouping column names.
 #'
 #' @return A tibble containing BUSCO summary statistics.
@@ -12,7 +13,9 @@
 #' @examples
 #' genomes <- tibble::tibble(phylum = c("Ascomycota", "Ascomycota"), C = c(95, 90), F = c(2, 5), M = c(3, 5))
 #' fungioutline::summarize_busco(genomes, by = "phylum")
-summarize_busco <- function(data, by = NULL) {
+#'
+#' fungioutline::summarize_busco(by = "phylum")
+summarize_busco <- function(data = fo_default_genome_metadata(), by = NULL) {
     if (!is.data.frame(data)) {
         rlang::abort("`data` must be a data frame or tibble.")
     }

@@ -5,7 +5,7 @@
 \title{Summarize genome availability and quality}
 \usage{
 summarize_genomes(
-  genome_metadata,
+  genome_metadata = fo_default_genome_metadata(),
   taxon = NULL,
   outline = NULL,
   taxon_index = NULL,
@@ -14,15 +14,17 @@ summarize_genomes(
 )
 }
 \arguments{
-\item{genome_metadata}{Genome metadata data frame.}
+\item{genome_metadata}{Genome metadata data frame. Defaults to the packaged
+\code{\link{fgtdb_genome_metadata}} data.}
 
 \item{taxon}{Optional character vector of taxon names to resolve through the
 taxon index before summarizing.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{by_rank}{Optional genome rank column for grouped summaries when
 \code{taxon} is \code{NULL}.}
@@ -40,4 +42,6 @@ all genomes, grouped by a genome rank column, or scoped to one or more taxa.
 \examples{
 genomes <- tibble::tibble(phylum = "Ascomycota", genus = "Fusarium", accession = "GCA_1", C = 95, F = 2, M = 3, ok = TRUE)
 fungioutline::summarize_genomes(genomes, by_rank = "phylum")
+
+fungioutline::summarize_genomes(by_rank = "phylum")
 }

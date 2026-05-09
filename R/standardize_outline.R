@@ -2,8 +2,9 @@
 #'
 #' Converts fungal outline column names to snake case, trims character values,
 #' converts empty strings to `NA`, and returns a tibble. Required outline
-#' columns are moved before extra columns when present. Future `species` and
-#' `species_syn` columns are preserved if they are present and ignored if absent.
+#' columns are moved before extra columns when present. Species-level outline
+#' columns are dropped because this package treats the curated outline as a
+#' genus-level classification system.
 #'
 #' @param data A data frame containing a fungal outline table.
 #' @param trim_values Logical. If `TRUE`, trim and squish whitespace in
@@ -38,6 +39,7 @@ standardize_outline <- function(data, trim_values = TRUE, empty_to_na = TRUE, ve
 
     names(data) <- clean_names
     outline <- tibble::as_tibble(data)
+    outline <- dplyr::select(outline, -dplyr::any_of(outline_deprecated_columns()))
 
     if (isTRUE(trim_values) || isTRUE(empty_to_na)) {
         outline <- dplyr::mutate(

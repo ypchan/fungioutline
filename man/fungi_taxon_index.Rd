@@ -6,8 +6,8 @@
 \title{Prebuilt fungal taxon index}
 \format{
 A tibble with taxon names, normalized matching keys, accepted names,
-ranks, synonym status, lineage columns, source row IDs, and update
-metadata.
+ranks from kingdom through genus, synonym status, lineage columns, source
+row IDs, and update metadata.
 }
 \source{
 Generated from \link{fungi_outline} by \code{data-raw/prepare_package_data.R}.

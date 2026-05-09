@@ -18,10 +18,11 @@ get_descendants(
 \item{target_rank}{Optional descendant rank to return. If \code{NULL}, all lower
 ranks are returned.}
 
-\item{outline}{Optional standardized outline used to build a taxon index when
-\code{taxon_index} is not supplied.}
+\item{outline}{Optional standardized outline used to build a taxon index.}
 
-\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}.}
+\item{taxon_index}{Optional taxon index from \code{\link[=build_taxon_index]{build_taxon_index()}}. If both
+\code{outline} and \code{taxon_index} are \code{NULL}, the packaged
+\code{\link{fungi_taxon_index}} data is used.}
 
 \item{match_synonym}{Logical. If \code{TRUE}, match synonym ancestor names.}
 }
@@ -34,6 +35,8 @@ lineage. Synonym ancestor names are resolved before descendants are selected.
 }
 \examples{
 outline <- tibble::tibble(kingdom = "Fungi", phylum = "Ascomycota", genus = "Fusarium")
+fungioutline::get_descendants("Ascomycota", target_rank = "genus")
+
 idx <- fungioutline::build_taxon_index(outline)
 fungioutline::get_descendants("Ascomycota", target_rank = "genus", taxon_index = idx)
 }

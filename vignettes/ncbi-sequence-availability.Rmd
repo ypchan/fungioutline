@@ -21,13 +21,6 @@ taxon or clade. The functions are serial by default, cache results, and use
 
 Network examples in this vignette are not executed by default.
 
-## Prepare a taxon index
-
-```{r}
-outline <- fungioutline::fungi_outline
-idx <- fungioutline::fungi_taxon_index
-```
-
 Taxon names are resolved before querying NCBI, so synonyms can map to accepted
 names when `match_synonym = TRUE`.
 
@@ -38,18 +31,17 @@ Use `search_ncbi_sequence_counts()` when you only need record counts.
 ```{r}
 counts <- fungioutline::search_ncbi_sequence_counts(
     c("Ascomycota", "Fusarium", "Agaricus"),
-    taxon_index = idx,
     db = "nuccore",
     delay_sec = 0.34
 )
 
 counts |>
     dplyr::select(
-        .data$input_taxon,
-        .data$accepted_name,
-        .data$count,
-        .data$has_sequences,
-        .data$cached
+        "input_taxon",
+        "accepted_name",
+        "count",
+        "has_sequences",
+        "cached"
     )
 ```
 
@@ -62,14 +54,13 @@ Use `search_ncbi_sequences()` when you also want IDs up to `retmax`.
 ```{r}
 seq_results <- fungioutline::search_ncbi_sequences(
     "Fusarium",
-    taxon_index = idx,
     db = "nuccore",
     retmax = 20,
     delay_sec = 0.34
 )
 
 seq_results |>
-    dplyr::select(.data$input_taxon, .data$count, .data$ids)
+    dplyr::select("input_taxon", "count", "ids")
 ```
 
 ## Caching
@@ -80,7 +71,6 @@ cache directory for reproducible projects.
 ```{r}
 counts <- fungioutline::search_ncbi_sequence_counts(
     "Fusarium",
-    taxon_index = idx,
     cache_dir = "inst/extdata/ncbi-cache",
     delay_sec = 0.34
 )
@@ -143,7 +133,6 @@ mock_search <- function(db, query, retmax, api_key) {
 
 fungioutline::search_ncbi_sequences(
     "Fusarium",
-    taxon_index = idx,
     use_cache = FALSE,
     delay_sec = 0,
     search_fun = mock_search

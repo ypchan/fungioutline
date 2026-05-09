@@ -4,10 +4,11 @@
 \alias{summarize_busco}
 \title{Summarize BUSCO metrics}
 \usage{
-summarize_busco(data, by = NULL)
+summarize_busco(data = fo_default_genome_metadata(), by = NULL)
 }
 \arguments{
-\item{data}{A genome metadata data frame.}
+\item{data}{A genome metadata data frame. Defaults to the packaged
+\code{\link{fgtdb_genome_metadata}} data.}
 
 \item{by}{Optional character vector of grouping column names.}
 }
@@ -21,4 +22,6 @@ more grouping columns.
 \examples{
 genomes <- tibble::tibble(phylum = c("Ascomycota", "Ascomycota"), C = c(95, 90), F = c(2, 5), M = c(3, 5))
 fungioutline::summarize_busco(genomes, by = "phylum")
+
+fungioutline::summarize_busco(by = "phylum")
 }

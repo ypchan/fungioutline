@@ -89,33 +89,10 @@ validate_fungi_outline <- function(data, error = TRUE, verbose = FALSE) {
         )
     }
 
-    species_columns <- outline_future_columns()
-    missing_species_columns <- setdiff(species_columns, available_columns)
-
-    report[[length(report) + 1L]] <- if (length(missing_species_columns) == 0L) {
-        outline_report_row(
-            check = "species_columns",
-            status = "pass",
-            severity = "info",
-            column = paste(species_columns, collapse = ", "),
-            n = length(species_columns),
-            message = "Optional species columns are present."
-        )
-    } else {
-        outline_report_row(
-            check = "species_columns",
-            status = "pass",
-            severity = "info",
-            column = paste(missing_species_columns, collapse = ", "),
-            n = length(missing_species_columns),
-            message = "Optional species columns are absent; this is allowed."
-        )
-    }
-
     if (length(duplicated_names) == 0L) {
         outline <- tibble::as_tibble(data)
         names(outline) <- clean_names
-        rank_columns <- intersect(outline_rank_columns(include_species = TRUE), names(outline))
+        rank_columns <- intersect(outline_rank_columns(), names(outline))
         rank_values <- unlist(outline[rank_columns], use.names = FALSE)
         rank_values <- stringr::str_squish(as.character(rank_values))
         has_taxon_content <- any(!is.na(rank_values) & nzchar(rank_values))
@@ -145,7 +122,7 @@ validate_fungi_outline <- function(data, error = TRUE, verbose = FALSE) {
     }
 
     if (length(duplicated_names) == 0L) {
-        key_columns <- intersect(outline_rank_columns(include_species = TRUE), available_columns)
+        key_columns <- intersect(outline_rank_columns(), available_columns)
         if (length(key_columns) > 0L) {
             report[[length(report) + 1L]] <- check_duplicate_keys(
                 data = data,

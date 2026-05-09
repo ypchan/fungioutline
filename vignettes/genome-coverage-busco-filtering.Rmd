@@ -37,7 +37,7 @@ genome_validation |>
 ```
 
 The expected metadata includes taxonomic columns such as `phylum`, `class`,
-`order`, `family`, `genus`, and `species`, plus BUSCO percentage and count
+`order`, `family`, `genus`, and genome species labels, plus BUSCO percentage and count
 columns such as `C`, `F`, `M`, `complete_buscos`, and `total_buscos`.
 
 ## Classify genome quality
@@ -88,16 +88,13 @@ fungioutline::summarize_busco(genomes, by = c("phylum", "class"))
 
 ## Retrieve genomes for a clade
 
-Build a taxon index once, then reuse it with genome metadata.
+The packaged taxon index is used by default; pass custom genome metadata when
+you are working from an external workbook.
 
 ```{r}
-outline <- fungioutline::fungi_outline
-idx <- fungioutline::fungi_taxon_index
-
 ascomycota_genomes <- fungioutline::get_genomes(
     "Ascomycota",
-    genome_metadata = genomes,
-    taxon_index = idx
+    genome_metadata = genomes
 )
 ```
 
@@ -109,12 +106,11 @@ genome metadata rank, descendants are used to find matching genome rows.
 ```{r}
 fungioutline::summarize_genomes(
     genomes,
-    taxon = c("Ascomycota", "Basidiomycota"),
-    taxon_index = idx
+    taxon = c("Ascomycota", "Basidiomycota")
 )
 ```
 
-The summary includes genome counts, accession counts, species and genus counts,
+The summary includes genome counts, accession counts, genome species and genus counts,
 BUSCO summaries, and quality counts.
 
 ## Check descendant coverage
@@ -123,8 +119,7 @@ BUSCO summaries, and quality counts.
 coverage <- fungioutline::check_genome_coverage(
     "Ascomycota",
     genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 coverage |>
@@ -137,8 +132,7 @@ coverage |>
 fungioutline::plot_genome_coverage(
     "Ascomycota",
     genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 
 fungioutline::plot_busco_quality(genomes)
@@ -152,8 +146,7 @@ fungioutline::plot_busco_quality(
 fungioutline::plot_taxonomic_heatmap(
     "Ascomycota",
     genome_metadata = genomes,
-    target_rank = "genus",
-    taxon_index = idx
+    target_rank = "genus"
 )
 ```
 
@@ -164,7 +157,6 @@ fungioutline::plot_genome_coverage(
     "Ascomycota",
     genome_metadata = genomes,
     target_rank = "genus",
-    taxon_index = idx,
     output_path = "figures/ascomycota_genome_coverage.png"
 )
 ```
